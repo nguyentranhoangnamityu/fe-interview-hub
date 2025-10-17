@@ -12,7 +12,7 @@ interface Particle {
 export const ParticlesBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesRef = useRef<Particle[]>([])
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -63,20 +63,23 @@ export const ParticlesBackground = () => {
       animationRef.current = requestAnimationFrame(animate)
     }
 
+    const handleResize = () => {
+      resizeCanvas()
+      createParticles()
+    }
+
     resizeCanvas()
     createParticles()
     animate()
 
-    window.addEventListener('resize', () => {
-      resizeCanvas()
-      createParticles()
-    })
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      if (animationRef.current) {
+      if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current)
+        animationRef.current = null
       }
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 

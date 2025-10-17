@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Button } from '@fehub/ui'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
@@ -51,12 +51,6 @@ const formatMinutes = (minutes: number) => {
   return rest === 0 ? `${hours} giờ` : `${hours} giờ ${rest} phút`
 }
 
-const roleLabel: Record<string, string> = {
-  junior: 'Junior',
-  middle: 'Middle',
-  senior: 'Senior',
-}
-
 const renderSectionBody = (section: Lesson['sections'][number]['body']) =>
   section.map((block, index) => {
     if (block.type === 'paragraph') {
@@ -102,9 +96,6 @@ export const KnowledgeBaseLessonPage = () => {
     getLessonProgress,
     toggleSectionCompletion,
     setLessonStatus,
-    submitQuiz,
-    resetQuiz,
-    getQuizSummary,
   } = useKnowledgeBase()
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [getLesson, lessonId])
@@ -115,24 +106,6 @@ export const KnowledgeBaseLessonPage = () => {
       navigate('/knowledge-base', { replace: true })
     }
   }, [lesson, lessonId, navigate])
-
-  const [quizStatus, setQuizStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [quizMessage, setQuizMessage] = useState<string | null>(null)
-
-  const quizSummary = useMemo(
-    () => (lesson ? getQuizSummary(lesson.id) : { result: null, totalQuestions: 0, totalPoints: 0 }),
-    [getQuizSummary, lesson],
-  )
-
-  const storedQuizResult = quizSummary.result
-
-  const [answers, setAnswers] = useState<Record<string, string>>(
-    storedQuizResult?.answers ?? {},
-  )
-
-  useEffect(() => {
-    setAnswers(storedQuizResult?.answers ?? {})
-  }, [storedQuizResult])
 
   if (!lesson) {
     return null
@@ -156,47 +129,6 @@ export const KnowledgeBaseLessonPage = () => {
       return
     }
     void setLessonStatus(lesson.id, status)
-  }
-
-  const handleSelectAnswer = (questionId: string, optionId: string) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: optionId,
-    }))
-  }
-
-  const handleSubmitQuiz = async () => {
-    if (!lesson.quizzes || lesson.quizzes.length === 0) {
-      return
-    }
-    if (!user) {
-      setQuizStatus('error')
-      setQuizMessage('Đăng nhập để chấm điểm quiz và lưu kết quả.')
-      return
-    }
-    const result = await submitQuiz(lesson.id, answers)
-    if (!result) {
-      setQuizStatus('error')
-      setQuizMessage('Không thể chấm điểm vào lúc này. Thử lại sau nhé.')
-      return
-    }
-    setQuizStatus('success')
-    setQuizMessage(`Bạn đạt ${result.score}/${result.totalPoints} điểm.`)
-  }
-
-  const handleResetQuiz = async () => {
-    if (!lesson.quizzes || lesson.quizzes.length === 0) {
-      return
-    }
-    if (!user) {
-      setQuizStatus('error')
-      setQuizMessage('Đăng nhập để xoá kết quả quiz.')
-      return
-    }
-    await resetQuiz(lesson.id)
-    setAnswers({})
-    setQuizStatus('idle')
-    setQuizMessage(null)
   }
 
   const statusOptions: LessonProgressStatus[] = ['not_started', 'in_progress', 'completed']

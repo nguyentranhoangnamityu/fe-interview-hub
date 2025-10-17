@@ -3,7 +3,7 @@ import { Button } from '@fehub/ui'
 import { Link } from 'react-router-dom'
 
 import { useAuth } from '../providers/AuthProvider'
-import { useKnowledgeBase, type Lesson, type TechStack } from '../providers/KnowledgeBaseProvider'
+import { useKnowledgeBase, type Lesson } from '../providers/KnowledgeBaseProvider'
 
 type LessonStatusKey = 'completed' | 'in_progress' | 'not_started'
 
@@ -174,7 +174,6 @@ export const KnowledgeBasePage = () => {
     techStacks,
     lessons,
     getLessonProgress,
-    getLessonsByTechStack,
     createLesson,
     updateLesson,
     deleteLesson,
@@ -715,7 +714,7 @@ export const KnowledgeBasePage = () => {
                 </div>
               )}
             </div>
-        {/* {user ? (
+        {user ? (
           <section className="mt-12 rounded-3xl border border-indigo-200/70 bg-white/90 p-8 shadow-xl shadow-indigo-200/20 dark:border-slate-800 dark:bg-slate-900/70">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -879,7 +878,7 @@ export const KnowledgeBasePage = () => {
               </div>
             </div>
           </section>
-        ) : null} */}
+        ) : null}
         </main>
         </div>
 

@@ -1,12 +1,10 @@
 import { useMemo } from 'react'
 import { Button } from '@fehub/ui'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   LineChart, 
   Line, 
-  AreaChart, 
-  Area, 
   PieChart, 
   Pie, 
   Cell, 
@@ -20,21 +18,12 @@ import {
   ResponsiveContainer 
 } from 'recharts'
 
-import { useAuth } from '../providers/AuthProvider'
 import { useKnowledgeBase } from '../providers/KnowledgeBaseProvider'
-import { ParticlesBackground } from '../components/ParticlesBackground'
 import { AnimatedCard } from '../components/AnimatedCard'
 import { AnimatedCounter } from '../components/AnimatedCounter'
 
 export const DashboardPage = () => {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
   const { lessons, progress, getLessonProgress } = useKnowledgeBase()
-
-  const handleSignOut = () => {
-    logout()
-    navigate('/login', { replace: true })
-  }
 
   const lessonStats = useMemo(() => {
     const totalLessons = lessons.length

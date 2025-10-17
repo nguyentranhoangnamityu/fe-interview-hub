@@ -1,4 +1,5 @@
-import { ReactNode, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { Sidebar } from '../components/Sidebar'
 import { Button } from '@fehub/ui'
 

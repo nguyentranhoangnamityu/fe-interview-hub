@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Button } from '@fehub/ui'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { useKnowledgeBase } from '../providers/KnowledgeBaseProvider'
 
@@ -12,7 +12,6 @@ const roleLabel: Record<string, string> = {
 
 export const MockInterviewPage = () => {
   const { lessonId = '' } = useParams<{ lessonId: string }>()
-  const navigate = useNavigate()
   const { getLesson } = useKnowledgeBase()
 
   const lesson = useMemo(() => (lessonId ? getLesson(lessonId) : undefined), [getLesson, lessonId])

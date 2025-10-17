@@ -3,10 +3,7 @@ import { Button } from '@fehub/ui'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { useAuth } from '../providers/AuthProvider'
-import {
-  type Lesson,
-  useKnowledgeBase,
-} from '../providers/KnowledgeBaseProvider'
+import { useKnowledgeBase } from '../providers/KnowledgeBaseProvider'
 import { TextWithCode } from '../components/TextWithCode'
 
 export const QuizPage = () => {
@@ -211,7 +208,6 @@ export const QuizPage = () => {
           <main className="flex-1 space-y-8 lg:pl-6 xl:pl-10">
             <div className="space-y-6">
               {lesson.quizzes.map((quiz, index) => {
-                const isAnswered = answers[quiz.id]
                 const isCorrect = storedQuizResult?.answers?.[quiz.id] === quiz.correctOptionId
                 const showResult = storedQuizResult && storedQuizResult.completedAt
                 

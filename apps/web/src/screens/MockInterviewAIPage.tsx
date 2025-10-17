@@ -247,14 +247,20 @@ export const MockInterviewAIPage = () => {
   // Function trả về câu trả lời mẫu khi không có API
   const getFallbackResponse = (messages: Array<{ role: string, content: string }>, systemPrompt: string) => {
     const lastMessage = messages[messages.length - 1]
-    if (!lastMessage) return `Xin chào! Tôi sẽ là interviewer của bạn hôm nay về ${lesson?.title || 'Frontend Development'}.`
+    const promptTopicMatch = systemPrompt.match(/"([^"]+)"/)
+    const fallbackTopic =
+      lesson?.title || promptTopicMatch?.[1] || (systemPrompt.trim() ? systemPrompt : 'Frontend Development')
+
+    if (!lastMessage) {
+      return `Xin chào! Tôi sẽ là interviewer của bạn hôm nay về ${fallbackTopic}.`
+    }
 
     const responses = [
-      `Cảm ơn bạn đã trả lời về ${lesson?.title || 'chủ đề này'}. Hãy cho tôi biết thêm về kinh nghiệm của bạn với ${lesson?.title || 'chủ đề này'}.`,
-      `Đó là một câu trả lời tốt về ${lesson?.title || 'chủ đề này'}. Bạn có thể giải thích chi tiết hơn không?`,
-      `Tôi hiểu. Câu hỏi tiếp theo: Bạn đã từng gặp phải thử thách nào khi làm việc với ${lesson?.title || 'chủ đề này'}?`,
-      `Thú vị! Bạn đã học được gì từ trải nghiệm với ${lesson?.title || 'chủ đề này'}?`,
-      `Tuyệt vời! Bạn có câu hỏi nào về ${lesson?.title || 'chủ đề này'} không?`
+      `Cảm ơn bạn đã trả lời về ${fallbackTopic}. Hãy cho tôi biết thêm về kinh nghiệm của bạn với ${fallbackTopic}.`,
+      `Đó là một câu trả lời tốt về ${fallbackTopic}. Bạn có thể giải thích chi tiết hơn không?`,
+      `Tôi hiểu. Câu hỏi tiếp theo: Bạn đã từng gặp phải thử thách nào khi làm việc với ${fallbackTopic}?`,
+      `Thú vị! Bạn đã học được gì từ trải nghiệm với ${fallbackTopic}?`,
+      `Tuyệt vời! Bạn có câu hỏi nào về ${fallbackTopic} không?`
     ]
 
     return responses[Math.floor(Math.random() * responses.length)]
