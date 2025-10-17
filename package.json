@@ -1,0 +1,26 @@
+{
+  "name": "fe-interview-hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen-story": "node scripts/generate-story.mjs",
+    "dev": "turbo run dev --parallel",
+    "dev:web": "turbo run dev --filter=@fehub/web",
+    "dev:admin": "turbo run dev --filter=@fehub/admin",
+    "dev:api": "turbo run dev --filter=@fehub/api",
+    "build": "turbo run build --parallel"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "devDependencies": {
+    "turbo": "^2.5.8"
+  }
+}

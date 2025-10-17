@@ -1,0 +1,34 @@
+{
+  // "files": [],
+  "references": [
+    // { "path": "./packages/ui" },
+    // { "path": "./packages/hooks" },
+    // { "path": "./packages/api" },
+    // { "path": "./packages/utils" },
+    // { "path": "./packages/types" },
+    // { "path": "./packages/i18n" },
+    // { "path": "./apps/web" },
+    // { "path": "./apps/admin" }
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fehub/ui": ["packages/ui/src"],
+      "@fehub/hooks": ["packages/hooks/src"],
+      "@fehub/api": ["packages/api/src"],
+      "@fehub/utils": ["packages/utils/src"],
+      "@fehub/types": ["packages/types/src"],
+      "@fehub/i18n": ["packages/i18n/src"]
+    }
+  }
+}

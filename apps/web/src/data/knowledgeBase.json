@@ -1,0 +1,860 @@
+{
+  "lastUpdated": "2024-11-20",
+  "techStacks": {
+    "html": {
+      "id": "html",
+      "name": "HTML",
+      "description": "HyperText Markup Language - Ngôn ngữ đánh dấu siêu văn bản",
+      "logo": "🌐",
+      "color": "#E34F26",
+      "lessons": []
+    },
+    "css": {
+      "id": "css", 
+      "name": "CSS",
+      "description": "Cascading Style Sheets - Ngôn ngữ định dạng giao diện",
+      "logo": "🎨",
+      "color": "#1572B6",
+      "lessons": []
+    },
+    "js": {
+      "id": "js",
+      "name": "JavaScript",
+      "description": "Ngôn ngữ lập trình động cho web",
+      "logo": "⚡",
+      "color": "#F7DF1E",
+      "lessons": []
+    },
+    "ts": {
+      "id": "ts",
+      "name": "TypeScript", 
+      "description": "JavaScript với kiểu dữ liệu tĩnh",
+      "logo": "🔷",
+      "color": "#3178C6",
+      "lessons": []
+    },
+    "react": {
+      "id": "react",
+      "name": "ReactJS",
+      "description": "Thư viện JavaScript cho xây dựng giao diện người dùng",
+      "logo": "⚛️",
+      "color": "#61DAFB",
+      "lessons": []
+    },
+    "other": {
+      "id": "other",
+      "name": "Khác",
+      "description": "Các công nghệ và chủ đề khác",
+      "logo": "🔧",
+      "color": "#6B7280",
+      "lessons": []
+    }
+  },
+  "lessons": [
+    {
+      "id": "js-scope-and-closures",
+      "title": "Scope & Closures trong phỏng vấn JavaScript",
+      "description": "Ôn lại lexical scope, closure và những bẫy phổ biến để tự tin xử lý câu hỏi chuyên sâu.",
+      "difficulty": "Trung bình",
+      "estimatedTime": 35,
+      "techStack": "js",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Ghi chú lập trình đặt cạnh laptop"
+      },
+      "tags": ["javascript", "closure", "scope", "interview"],
+      "quizzes": [
+        {
+          "id": "closure-output",
+          "prompt": "Đoạn mã nào dưới đây in ra giá trị 0,1,2 lần lượt khi sử dụng setTimeout?",
+          "options": [
+            { "id": "A", "text": "`for (var i = 0; i < 3; i += 1) { setTimeout(() => console.log(i), 0) }`" },
+            { "id": "B", "text": "`for (let i = 0; i < 3; i += 1) { setTimeout(() => console.log(i), 0) }`" },
+            { "id": "C", "text": "`for (const i = 0; i < 3; i += 1) { setTimeout(() => console.log(i), 0) }`" },
+            { "id": "D", "text": "`for (var i = 0; i < 3; i += 1) { setTimeout(((j) => () => console.log(j))(i), 0) }`" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "let tạo block scope riêng cho từng vòng lặp nên callback giữ được giá trị tại thời điểm khai báo.",
+          "points": 1
+        },
+        {
+          "id": "closure-private",
+          "prompt": "Khi nào bạn nên sử dụng closure để tạo dữ liệu riêng tư?",
+          "options": [
+            { "id": "A", "text": "Khi cần truy cập DOM trong component React" },
+            { "id": "B", "text": "Khi muốn tái sử dụng logic và che giấu state bên trong một module" },
+            { "id": "C", "text": "Khi cần tối ưu hoá vòng lặp for" },
+            { "id": "D", "text": "Khi muốn giảm kích thước bundle" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Closure phù hợp để đóng gói state và tránh lộ chi tiết triển khai ra bên ngoài API.",
+          "points": 1
+        },
+        {
+          "id": "lexical-scope",
+          "prompt": "Phát biểu nào sau đây là chính xác về lexical scope?",
+          "options": [
+            { "id": "A", "text": "Lexical scope được xác định ở thời điểm runtime dựa trên call stack." },
+            { "id": "B", "text": "Lexical scope phụ thuộc vào vị trí khai báo biến trong mã nguồn." },
+            { "id": "C", "text": "Lexical scope chỉ tồn tại trong strict mode." },
+            { "id": "D", "text": "Lexical scope cho phép truy cập biến theo hướng con → anh em." }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Phạm vi lexical scope được quyết định khi bạn viết mã chứ không phải lúc thực thi.",
+          "points": 1
+        },
+        {
+          "id": "closure-debug",
+          "prompt": "Cách nào sau đây giúp debug closure hiệu quả?",
+          "options": [
+            { "id": "A", "text": "Thêm `console.log` để in ra scope chain bằng `JSON.stringify(scope)`" },
+            { "id": "B", "text": "Dùng Chrome DevTools hiển thị Scope trong tab Sources khi đặt breakpoint" },
+            { "id": "C", "text": "Phá vỡ closure bằng cách đổi `var` thành `let`" },
+            { "id": "D", "text": "Tắt strict mode để trình duyệt log nhiều thông tin hơn" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "DevTools cung cấp bảng hiển thị scope hiện tại và closure để quan sát giá trị thực tế.",
+          "points": 1
+        }
+      ],
+      "mockPrompts": [
+        {
+          "id": "closure-junior-1",
+          "role": "junior",
+          "question": "Giải thích closure cho một thực tập sinh bằng ví dụ đơn giản.",
+          "evaluationKeywords": ["hàm", "ghi nhớ", "scope", "ví dụ"],
+          "guidance": "Tìm kiếm việc mô tả closure bằng ngôn ngữ đời thường và minh hoạ với một đoạn mã đơn giản."
+        },
+        {
+          "id": "closure-middle-1",
+          "role": "middle",
+          "question": "Cách bạn dùng closure để tránh rò rỉ dữ liệu trong một module xử lý biểu mẫu?",
+          "evaluationKeywords": ["module", "private", "state", "API"],
+          "guidance": "Kỳ vọng câu trả lời nói về đóng gói state, chỉ expose hàm public và cân nhắc kiểm thử."
+        },
+        {
+          "id": "closure-senior-1",
+          "role": "senior",
+          "question": "Thiết kế giải pháp dùng closure cho hệ thống permission phức tạp và những trade-off bạn dự đoán.",
+          "evaluationKeywords": ["permission", "cache", "testability", "memory"],
+          "guidance": "Nhấn mạnh vào khả năng mở rộng, rủi ro memory leak và chiến lược test."
+        }
+      ],
+      "sections": [
+        {
+          "id": "lexical-scope",
+          "title": "Lexical scope là gì?",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Lexical scope (hay static scope) được xác định dựa trên vị trí của biến trong mã nguồn. Engine luôn nhìn vào vị trí khai báo để quyết định phạm vi truy cập."
+            },
+            {
+              "type": "list",
+              "items": [
+                "let/const tuân theo block scope trong khi var thuộc function scope.",
+                "Scope được xếp chồng dạng cây, scope con truy cập được scope cha nhưng ngược lại thì không.",
+                "Quá trình lookup biến đi từ scope hiện tại ra toàn cục; nếu không tìm thấy sẽ trả về ReferenceError."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "closure-definition",
+          "title": "Closure hoạt động như thế nào?",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Closure là khả năng một hàm nhớ môi trường nơi nó được định nghĩa, kể cả khi được thực thi ở scope khác. Đây là nền tảng để xây dựng state riêng tư và các pattern module."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "function createCounter() {\n  let count = 0\n  return () => ++count\n}\n\nconst counter = createCounter()\ncounter() // 1\ncounter() // 2"
+            },
+            {
+              "type": "paragraph",
+              "text": "counter giữ tham chiếu tới biến count ngay cả khi createCounter đã hoàn tất, biến count giờ giống như private state."
+            }
+          ]
+        },
+        {
+          "id": "common-pitfalls",
+          "title": "Những lỗi closure kinh điển",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Phỏng vấn thường yêu cầu bạn sửa lỗi liên quan tới var và vòng lặp bất đồng bộ."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "for (var i = 0; i < 3; i += 1) {\n  setTimeout(() => console.log(i), 0)\n}\n// In 3,3,3 vì i dùng chung một binding."
+            },
+            {
+              "type": "paragraph",
+              "text": "Giải pháp: dùng let, tạo IIFE hoặc viết factory để tạo binding riêng cho mỗi vòng lặp."
+            }
+          ]
+        },
+        {
+          "id": "closure-exercises",
+          "title": "Bài tập luyện tập nhanh",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Quan sát các pattern phổ biến như once, memoize hoặc debounce để thể hiện bạn hiểu closure ở mức ứng dụng."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "function once<T extends unknown[]>(fn: (...args: T) => void) {\n  let called = false\n  return (...args: T) => {\n    if (called) return\n    called = true\n    fn(...args)\n  }\n}\n\nconst init = once(() => console.log('Init app'))\ninit()\ninit() // không log thêm"
+            }
+          ]
+        },
+        {
+          "id": "interview-prompts",
+          "title": "Checklist phỏng vấn",
+          "body": [
+            {
+              "type": "list",
+              "items": [
+                "Phân biệt lexical scope và dynamic scope bằng ví dụ đời thường.",
+                "Giải thích lý do closure quan trọng trong các mô hình module cũ và khi nào nên tránh.",
+                "Chuẩn bị câu chuyện thực tế: bạn đã dùng closure để giải quyết vấn đề gì trong dự án."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "takeaways",
+          "title": "Tổng kết nhanh",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Nắm vững cơ chế lookup biến giúp bạn tự tin tối ưu hoá và bảo trì code. Hãy mang theo ít nhất hai ví dụ closure thực chiến khi bước vào phòng phỏng vấn."
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "MDN - Closures",
+          "url": "https://developer.mozilla.org/vi/docs/Web/JavaScript/Closures"
+        },
+        {
+          "title": "You Don't Know JS Yet: Scope & Closures",
+          "url": "https://github.com/getify/You-Dont-Know-JS/tree/2nd-ed/scope-closures"
+        }
+      ]
+    },
+    {
+      "id": "js-event-loop",
+      "title": "Event Loop & Bất đồng bộ trong JS",
+      "description": "Đào sâu event loop, microtask, macrotask và chiến lược xử lý bất đồng bộ để vượt qua câu hỏi hóc búa.",
+      "difficulty": "Nâng cao",
+      "estimatedTime": 45,
+      "techStack": "js",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Màn hình hiển thị biểu đồ và dòng code"
+      },
+      "tags": ["javascript", "event-loop", "async", "interview"],
+      "quizzes": [
+        {
+          "id": "event-loop-order",
+          "prompt": "Thứ tự in ra của đoạn mã `console.log('A'); setTimeout(...0); Promise.resolve().then(...); console.log('B')` là gì?",
+          "options": [
+            { "id": "A", "text": "A → B → timeout → promise" },
+            { "id": "B", "text": "A → promise → B → timeout" },
+            { "id": "C", "text": "A → B → promise → timeout" },
+            { "id": "D", "text": "A → timeout → B → promise" }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Microtask (promise) chạy sau khi call stack rỗng nhưng trước macrotask (timeout).",
+          "points": 1
+        },
+        {
+          "id": "raf-question",
+          "prompt": "requestAnimationFrame phù hợp nhất cho trường hợp nào?",
+          "options": [
+            { "id": "A", "text": "Chạy một tính toán nặng nề sau mỗi lần người dùng nhập ký tự." },
+            { "id": "B", "text": "Cập nhật UI dựa trên scroll để đảm bảo animation mượt." },
+            { "id": "C", "text": "Thực thi truy vấn API song song." },
+            { "id": "D", "text": "Thực hiện debounce cho sự kiện resize." }
+          ],
+          "correctOptionId": "B",
+          "explanation": "requestAnimationFrame được tối ưu để đồng bộ với chu kỳ paint giúp animation mượt.",
+          "points": 1
+        },
+        {
+          "id": "microtask-hazard",
+          "prompt": "Điều gì xảy ra nếu bạn tạo một chuỗi promise then vô hạn mà không nhả quyền cho macrotask?",
+          "options": [
+            { "id": "A", "text": "Trình duyệt tự động dừng promise thứ 100." },
+            { "id": "B", "text": "UI bị block vì microtask queue không bao giờ rỗng." },
+            { "id": "C", "text": "Macrotask tiếp theo sẽ chạy song song để cứu UI." },
+            { "id": "D", "text": "Không ảnh hưởng vì microtask nhẹ hơn timeout." }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Microtask có độ ưu tiên cao, nếu không giải phóng sẽ chặn render và interaction.",
+          "points": 1
+        },
+        {
+          "id": "async-pattern",
+          "prompt": "Đâu là cách tốt nhất để chạy hai API độc lập bằng async/await?",
+          "options": [
+            { "id": "A", "text": "`await fetchA(); await fetchB();`" },
+            { "id": "B", "text": "`const a = fetchA(); const b = fetchB(); await a; await b;`" },
+            { "id": "C", "text": "`Promise.race([fetchA(), fetchB()])`" },
+            { "id": "D", "text": "`Promise.any([fetchA(), fetchB()])`" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Khởi tạo promise trước rồi await giúp chạy song song thay vì tuần tự.",
+          "points": 1
+        }
+      ],
+      "mockPrompts": [
+        {
+          "id": "eventloop-junior-1",
+          "role": "junior",
+          "question": "Giải thích sự khác nhau giữa setTimeout và Promise.then cho một người mới học JavaScript.",
+          "evaluationKeywords": ["macrotask", "microtask", "queue", "ví dụ"],
+          "guidance": "Kỳ vọng câu trả lời nêu rõ thứ tự thực thi và đưa ví dụ dễ hiểu."
+        },
+        {
+          "id": "eventloop-middle-1",
+          "role": "middle",
+          "question": "Bạn sẽ debug một lỗi render bị giật liên quan tới microtask queue như thế nào?",
+          "evaluationKeywords": ["Performance tab", "microtask", "render", "profiling"],
+          "guidance": "Hãy tìm nhắc đến Performance panel, snapshot microtask và tối ưu lại scheduler."
+        },
+        {
+          "id": "eventloop-senior-1",
+          "role": "senior",
+          "question": "Thiết kế chiến lược scheduling cho web app phức tạp cần xử lý streaming data và animation.",
+          "evaluationKeywords": ["scheduler", "priority", "backpressure", "RAF", "web worker"],
+          "guidance": "Câu trả lời nên đề cập phân tầng tác vụ, phân bổ ưu tiên và fallback."
+        }
+      ],
+      "sections": [
+        {
+          "id": "runtime-model",
+          "title": "Bức tranh tổng quan runtime",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "JavaScript chạy đơn luồng với call stack, heap và các queue khác nhau. Web APIs hoặc Node APIs sẽ tiếp nhận tác vụ I/O rồi trả callback vào hàng đợi phù hợp."
+            },
+            {
+              "type": "list",
+              "items": [
+                "Call stack hoạt động LIFO: hàm vào sau sẽ chạy trước.",
+                "Macrotask queue tiếp nhận setTimeout, setInterval, DOM events, I/O của Node.",
+                "Microtask queue ưu tiên cao hơn, chứa Promise.then, queueMicrotask, MutationObserver."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "microtask-vs-macrotask",
+          "title": "Microtask và macrotask khác nhau ra sao?",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Sau mỗi macrotask, event loop sẽ chạy hết microtask trước khi trình duyệt render và chuyển sang macrotask tiếp theo."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "console.log('start')\nsetTimeout(() => console.log('timeout'), 0)\nPromise.resolve().then(() => console.log('promise'))\nconsole.log('end')\n// start -> end -> promise -> timeout"
+            },
+            {
+              "type": "paragraph",
+              "text": "Nêu rõ trong phỏng vấn: microtask chạy ngay khi call stack rỗng, nên promise luôn ưu tiên hơn timeout."
+            }
+          ]
+        },
+        {
+          "id": "render-cycle",
+          "title": "Event loop & chu kỳ render",
+          "body": [
+            {
+              "type": "list",
+              "items": [
+                "Browser chỉ render khi call stack trống và microtask queue rỗng để tránh giật flicker.",
+                "requestAnimationFrame được tối ưu để chạy trước khi browser render frame mới.",
+                "setTimeout với 0ms vẫn phải chờ event loop trả quyền điều khiển."
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Hãy chứng minh bạn hiểu ưu tiên render bằng việc giải thích vì sao microtask vô hạn có thể làm khoá UI."
+            }
+          ]
+        },
+        {
+          "id": "async-patterns",
+          "title": "Các pattern bất đồng bộ quan trọng",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Bạn phải nắm ưu nhược điểm của callback, Promise và async/await, đồng thời biết cách kết hợp Promise.all để chạy song song."
+            },
+            {
+              "type": "list",
+              "items": [
+                "Callback: dễ triển khai nhưng khó quản lý và xử lý lỗi.",
+                "Promise: chuỗi then/catch linh hoạt, dễ tạo retry hoặc timeout.",
+                "async/await: cú pháp đọc như đồng bộ, cần try/catch và tối ưu song song bằng Promise.all."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "common-tricks",
+          "title": "Bài test thứ tự thực thi thường gặp",
+          "body": [
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "async function demo() {\n  console.log('A')\n  await Promise.resolve()\n  console.log('B')\n}\n\ndemo()\nconsole.log('C')\n// Kết quả: A, C, B"
+            },
+            {
+              "type": "paragraph",
+              "text": "await đăng ký microtask nên B chạy sau khi call stack rỗng nhưng trước macrotask tiếp theo."
+            }
+          ]
+        },
+        {
+          "id": "whiteboard-tips",
+          "title": "Gợi ý trả lời phỏng vấn",
+          "body": [
+            {
+              "type": "list",
+              "items": [
+                "Vẽ sơ đồ gồm call stack, Web APIs, task queue, microtask queue và event loop.",
+                "Nhắc đến requestAnimationFrame và lý do dùng nó cho animation mượt.",
+                "Chia sẻ ví dụ thực tế nơi bạn tối ưu pipeline async hoặc tránh race condition."
+              ]
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "Jake Archibald - In The Loop",
+          "url": "https://www.youtube.com/watch?v=cCOL7MC4Pl0"
+        },
+        {
+          "title": "MDN - Event Loop",
+          "url": "https://developer.mozilla.org/vi/docs/Web/JavaScript/EventLoop"
+        }
+      ]
+    },
+    {
+      "id": "js-prototypes-patterns",
+      "title": "Prototype, Class & Pattern tổ chức mã",
+      "description": "Hiểu prototype chain, class syntax và lựa chọn pattern module/factory để dẫn dắt cuộc phỏng vấn.",
+      "difficulty": "Trung bình",
+      "estimatedTime": 40,
+      "techStack": "js",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Lập trình viên ghi chú kiến trúc phần mềm"
+      },
+      "tags": ["javascript", "prototype", "design-pattern", "oop"],
+      "quizzes": [
+        {
+          "id": "prototype-chain",
+          "prompt": "Điều gì xảy ra khi truy cập admin.name trong ví dụ const user = { name: 'Linh' }; const admin = Object.create(user); admin.role = 'admin'?",
+          "options": [
+            { "id": "A", "text": "undefined vì admin không có thuộc tính name" },
+            { "id": "B", "text": "Lỗi ReferenceError" },
+            { "id": "C", "text": "'Linh' nhờ prototype chain" },
+            { "id": "D", "text": "'admin' vì override" }
+          ],
+          "correctOptionId": "C",
+          "explanation": "Khi admin không có name, JavaScript sẽ tìm lên prototype user và lấy giá trị 'Linh'.",
+          "points": 1
+        },
+        {
+          "id": "class-vs-factory",
+          "prompt": "Khi nào nên ưu tiên factory function thay vì class?",
+          "options": [
+            { "id": "A", "text": "Khi cần kết hợp closure để tạo state riêng tư linh hoạt" },
+            { "id": "B", "text": "Khi cần kế thừa sâu với super()" },
+            { "id": "C", "text": "Khi muốn tận dụng decorators" },
+            { "id": "D", "text": "Khi cần hỗ trợ private field #value" }
+          ],
+          "correctOptionId": "A",
+          "explanation": "Factory functions dễ kết hợp closure, mixin và không ép buộc dùng new.",
+          "points": 1
+        },
+        {
+          "id": "module-pattern",
+          "prompt": "Điểm yếu chính của module pattern sử dụng IIFE là gì?",
+          "options": [
+            { "id": "A", "text": "Không thể tạo state riêng tư" },
+            { "id": "B", "text": "Khó kiểm thử nếu tất cả logic nằm trong scope đóng kín" },
+            { "id": "C", "text": "Không dùng được trong trình duyệt" },
+            { "id": "D", "text": "Cần transpiler Babel mới chạy được" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Việc đóng kín mọi thứ khiến mocking phụ thuộc khó khăn, cần thiết kế API tách bạch.",
+          "points": 1
+        },
+        {
+          "id": "prototype-polymorphism",
+          "prompt": "Cách nào sau đây tạo đa hình dựa trên prototype?",
+          "options": [
+            { "id": "A", "text": "`const obj = {}; obj.prototype = { speak() {} }`" },
+            { "id": "B", "text": "`function Animal() {}; Animal.prototype.speak = function() {}`" },
+            { "id": "C", "text": "`class Animal { static prototype = { speak() {} } }`" },
+            { "id": "D", "text": "`const animal = Animal(); animal.__proto__ = null`" }
+          ],
+          "correctOptionId": "B",
+          "explanation": "Đặt method trên Animal.prototype giúp mọi instance chia sẻ hành vi và override khi kế thừa.",
+          "points": 1
+        }
+      ],
+      "mockPrompts": [
+        {
+          "id": "prototype-junior-1",
+          "role": "junior",
+          "question": "Giải thích prototype inheritance cho bạn cùng lớp bằng một ví dụ dễ hiểu.",
+          "evaluationKeywords": ["object", "prototype chain", "kế thừa", "ví dụ"],
+          "guidance": "Kỳ vọng mô tả chain và cách truy cập thuộc tính."
+        },
+        {
+          "id": "prototype-middle-1",
+          "role": "middle",
+          "question": "Bạn sẽ refactor một module từ class sang factory để cải thiện testability như thế nào?",
+          "evaluationKeywords": ["factory", "closure", "test", "dependency injection"],
+          "guidance": "Tập trung vào việc mock dependency và kiểm soát state."
+        },
+        {
+          "id": "prototype-senior-1",
+          "role": "senior",
+          "question": "Trình bày chiến lược kết hợp prototype và composition để xây dựng hệ thống plugin mở rộng.",
+          "evaluationKeywords": ["composition", "mixin", "plugin", "extensibility"],
+          "guidance": "Câu trả lời cần đề cập tới API surface, conflict resolution và khả năng mở rộng."
+        }
+      ],
+      "sections": [
+        {
+          "id": "prototype-chain",
+          "title": "Nguyên lý prototype chain",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Mọi object trong JS đều có thuộc tính nội tại [[Prototype]]. Khi truy cập thuộc tính, engine sẽ lần theo chuỗi prototype tới khi gặp null."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "const profile = { name: 'Linh' }\nconst admin = Object.create(profile)\nadmin.role = 'admin'\n\nconsole.log(admin.name) // Kế thừa từ profile"
+            },
+            {
+              "type": "paragraph",
+              "text": "Nếu object con có thuộc tính trùng tên, quá trình lookup dừng ngay tại đó. Đây là cách JS cho phép shadowing."
+            }
+          ]
+        },
+        {
+          "id": "class-syntax",
+          "title": "Class ES6 chỉ là cú pháp sugar",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Class cung cấp cú pháp quen thuộc nhưng vẫn dựa trên prototype. Constructor dùng để khởi tạo instance và có thể chứa private field."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "class Counter {\n  #value = 0\n  increment() {\n    this.#value += 1\n    return this.#value\n  }\n}\n\nconst counter = new Counter()\ncounter.increment()"
+            },
+            {
+              "type": "paragraph",
+              "text": "Private field (#value) giúp đóng gói dữ liệu, ưu thế lớn khi kết hợp với inheritance hoặc decorator."
+            }
+          ]
+        },
+        {
+          "id": "factory-vs-class",
+          "title": "Factory function hay Class?",
+          "body": [
+            {
+              "type": "list",
+              "items": [
+                "Factory: linh hoạt, không cần new, dễ mixin và dễ dùng trong functional programming.",
+                "Class: rõ ràng khi cần extends/super, tương thích tốt với TypeScript và các framework như Angular.",
+                "Hãy đưa ví dụ thật xem team của bạn chọn phương án nào và lý do."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "module-pattern",
+          "title": "Module & Revealing Module Pattern",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Module pattern dùng IIFE và closure để tạo biến private. Revealing module pattern công khai rõ ràng API public nhằm hỗ trợ maintain."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "const todoStore = (() => {\n  const todos: string[] = []\n  const add = (item: string) => todos.push(item)\n  const list = () => [...todos]\n  return { add, list }\n})()\n\ntodoStore.add('Viết unit test')\nconsole.log(todoStore.list())"
+            },
+            {
+              "type": "paragraph",
+              "text": "Khi phỏng vấn, đừng quên nhắc đến nhược điểm: testing khó hơn nếu mọi thứ bị che giấu và khó mô phỏng dependency."
+            }
+          ]
+        },
+        {
+          "id": "pattern-playground",
+          "title": "Bài tập pattern thực hành",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Tự xây dựng một observer nhỏ bằng factory rồi refactor sang class để so sánh tính mở rộng."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "function createObserver() {\n  const listeners: Array<() => void> = []\n  return {\n    subscribe(fn: () => void) {\n      listeners.push(fn)\n      return () => listeners.splice(listeners.indexOf(fn), 1)\n    },\n    notify() {\n      listeners.forEach((fn) => fn())\n    },\n  }\n}\n\nconst store = createObserver()\nstore.subscribe(() => console.log('changed'))\nstore.notify()"
+            }
+          ]
+        },
+        {
+          "id": "interview-checklist",
+          "title": "Checklist trước phỏng vấn",
+          "body": [
+            {
+              "type": "list",
+              "items": [
+                "Vẽ sơ đồ prototype chain và giải thích cách lookup hoạt động.",
+                "Viết lại class thành function/prototype để chứng minh sự linh hoạt.",
+                "Chia sẻ ưu/nhược điểm khi dùng module pattern trong codebase lớn."
+              ]
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "MDN - Prototypal inheritance",
+          "url": "https://developer.mozilla.org/vi/docs/Web/JavaScript/Inheritance_and_the_prototype_chain"
+        },
+        {
+          "title": "Exploring JS - Factory functions vs Classes",
+          "url": "https://exploringjs.com/impatient-js/ch_factory-functions.html"
+        }
+      ]
+    },
+    {
+      "id": "html-semantic-elements",
+      "title": "HTML Semantic Elements & Accessibility",
+      "description": "Tìm hiểu về các thẻ HTML có ý nghĩa và cách tạo trang web accessible cho người dùng.",
+      "difficulty": "Cơ bản",
+      "estimatedTime": 25,
+      "techStack": "html",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Code HTML trên màn hình máy tính"
+      },
+      "tags": ["html", "semantic", "accessibility", "seo"],
+      "quizzes": [],
+      "mockPrompts": [],
+      "sections": [
+        {
+          "id": "semantic-overview",
+          "title": "Tổng quan về Semantic HTML",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Semantic HTML sử dụng các thẻ có ý nghĩa để mô tả nội dung thay vì chỉ định dạng. Điều này giúp trình duyệt, công cụ tìm kiếm và screen reader hiểu được cấu trúc trang web."
+            },
+            {
+              "type": "list",
+              "items": [
+                "header: Phần đầu trang hoặc section",
+                "nav: Menu điều hướng chính",
+                "main: Nội dung chính của trang",
+                "section: Phần nội dung có chủ đề riêng biệt",
+                "article: Nội dung độc lập có thể đứng riêng",
+                "aside: Nội dung phụ liên quan đến nội dung chính",
+                "footer: Phần cuối trang hoặc section"
+              ]
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "MDN - HTML Semantic Elements",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element#semantic_elements"
+        }
+      ]
+    },
+    {
+      "id": "css-flexbox-grid",
+      "title": "CSS Flexbox & Grid Layout",
+      "description": "Học cách sử dụng Flexbox và CSS Grid để tạo layout responsive và linh hoạt.",
+      "difficulty": "Trung bình",
+      "estimatedTime": 40,
+      "techStack": "css",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80",
+        "alt": "CSS code trên màn hình"
+      },
+      "tags": ["css", "flexbox", "grid", "layout", "responsive"],
+      "quizzes": [],
+      "mockPrompts": [],
+      "sections": [
+        {
+          "id": "flexbox-basics",
+          "title": "Flexbox cơ bản",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Flexbox là một phương pháp layout một chiều, phù hợp cho việc sắp xếp các phần tử trong một hàng hoặc một cột."
+            },
+            {
+              "type": "code",
+              "language": "css",
+              "snippet": ".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 1rem;\n}"
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "CSS Tricks - Flexbox Guide",
+          "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+        }
+      ]
+    },
+    {
+      "id": "typescript-basics",
+      "title": "TypeScript Fundamentals",
+      "description": "Tìm hiểu về TypeScript, kiểu dữ liệu và cách sử dụng trong dự án thực tế.",
+      "difficulty": "Trung bình",
+      "estimatedTime": 50,
+      "techStack": "ts",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1600&q=80",
+        "alt": "TypeScript code trên màn hình"
+      },
+      "tags": ["typescript", "types", "interface", "generics"],
+      "quizzes": [],
+      "mockPrompts": [],
+      "sections": [
+        {
+          "id": "typescript-intro",
+          "title": "Giới thiệu TypeScript",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "TypeScript là một superset của JavaScript, thêm kiểu dữ liệu tĩnh và các tính năng hiện đại khác."
+            },
+            {
+              "type": "code",
+              "language": "ts",
+              "snippet": "interface User {\n  id: number;\n  name: string;\n  email?: string;\n}\n\nconst user: User = {\n  id: 1,\n  name: 'John Doe'\n};"
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "TypeScript Handbook",
+          "url": "https://www.typescriptlang.org/docs/"
+        }
+      ]
+    },
+    {
+      "id": "react-hooks-patterns",
+      "title": "React Hooks & Patterns",
+      "description": "Khám phá các React Hooks phổ biến và design patterns trong React development.",
+      "difficulty": "Nâng cao",
+      "estimatedTime": 60,
+      "techStack": "react",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1600&q=80",
+        "alt": "React logo và code"
+      },
+      "tags": ["react", "hooks", "patterns", "state-management"],
+      "quizzes": [],
+      "mockPrompts": [],
+      "sections": [
+        {
+          "id": "hooks-overview",
+          "title": "React Hooks tổng quan",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "React Hooks cho phép bạn sử dụng state và các tính năng khác của React mà không cần viết class component."
+            },
+            {
+              "type": "code",
+              "language": "tsx",
+              "snippet": "import { useState, useEffect } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  \n  useEffect(() => {\n    document.title = `Count: ${count}`;\n  }, [count]);\n  \n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>+</button>\n    </div>\n  );\n}"
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "React Hooks Documentation",
+          "url": "https://reactjs.org/docs/hooks-intro.html"
+        }
+      ]
+    },
+    {
+      "id": "git-workflow",
+      "title": "Git Workflow & Best Practices",
+      "description": "Học cách sử dụng Git hiệu quả và các workflow phổ biến trong team development.",
+      "difficulty": "Trung bình",
+      "estimatedTime": 35,
+      "techStack": "other",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Git terminal và code"
+      },
+      "tags": ["git", "workflow", "collaboration", "version-control"],
+      "quizzes": [],
+      "mockPrompts": [],
+      "sections": [
+        {
+          "id": "git-basics",
+          "title": "Git cơ bản",
+          "body": [
+            {
+              "type": "paragraph",
+              "text": "Git là hệ thống quản lý phiên bản phân tán, giúp theo dõi thay đổi trong mã nguồn và hợp tác trong team."
+            },
+            {
+              "type": "list",
+              "items": [
+                "git init: Khởi tạo repository",
+                "git add: Thêm file vào staging area",
+                "git commit: Lưu thay đổi vào history",
+                "git push: Đẩy thay đổi lên remote repository",
+                "git pull: Lấy thay đổi từ remote repository"
+              ]
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "title": "Git Documentation",
+          "url": "https://git-scm.com/doc"
+        }
+      ]
+    }
+  ]
+}

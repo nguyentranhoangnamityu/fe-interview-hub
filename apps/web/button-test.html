@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 222.2 47.4% 11.2%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --radius: 0.5rem;
+        }
+
+        /* Button Base Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            border-radius: calc(var(--radius) - 2px);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            height: 2.5rem;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Button Variants */
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(var(--primary) / 0.9);
+        }
+
+        .btn-secondary {
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+        }
+
+        .btn-secondary:hover {
+            background-color: hsl(var(--secondary) / 0.8);
+        }
+
+        .btn-outline {
+            border: 1px solid hsl(var(--input));
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+
+        .btn-outline:hover {
+            background-color: hsl(var(--secondary));
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            padding: 2rem;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+
+        .container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Style Test</h1>
+    <div class="container">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-secondary">Secondary Button</button>
+        <button class="btn btn-outline">Outline Button</button>
+    </div>
+</body>
+</html>

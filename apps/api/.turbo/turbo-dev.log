@@ -1,0 +1,128 @@
+
+> api@0.0.1 dev /Users/namnth/Desktop/code/fe-interview-hub/apps/api
+> tsx watch src/server.ts
+
+node:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+[90m    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)[39m
+[90m    at __node_internal_uvExceptionWithHostPort (node:internal/errors:593:12)[39m
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at Function.listen (/Users/namnth/Desktop/code/fe-interview-hub/node_modules/[4m.pnpm[24m/express@4.21.2/node_modules/[4mexpress[24m/lib/application.js:635:24)
+    at start [90m(/Users/namnth/Desktop/code/fe-interview-hub/apps/api/[39msrc/server.ts:10:7[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+Emitted 'error' event on Server instance at:
+[90m    at emitErrorNT (node:net:1844:8)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+
+Node.js v18.20.6
+[90m12:34:38 PM[39m [96m[tsx][39m [95mchange[39m in [92m./src/routes/lessons.ts[39m [33mRerunning...[39m
+cnode:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+[90m    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)[39m
+[90m    at __node_internal_uvExceptionWithHostPort (node:internal/errors:593:12)[39m
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at Function.listen (/Users/namnth/Desktop/code/fe-interview-hub/node_modules/[4m.pnpm[24m/express@4.21.2/node_modules/[4mexpress[24m/lib/application.js:635:24)
+    at start [90m(/Users/namnth/Desktop/code/fe-interview-hub/apps/api/[39msrc/server.ts:10:7[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+Emitted 'error' event on Server instance at:
+[90m    at emitErrorNT (node:net:1844:8)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+
+Node.js v18.20.6
+[90m1:10:29 PM[39m [96m[tsx][39m [95mchange[39m in [92m./src/services/knowledgeBaseService.ts[39m [33mRerunning...[39m
+cnode:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+[90m    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)[39m
+[90m    at __node_internal_uvExceptionWithHostPort (node:internal/errors:593:12)[39m
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at Function.listen (/Users/namnth/Desktop/code/fe-interview-hub/node_modules/[4m.pnpm[24m/express@4.21.2/node_modules/[4mexpress[24m/lib/application.js:635:24)
+    at start [90m(/Users/namnth/Desktop/code/fe-interview-hub/apps/api/[39msrc/server.ts:10:7[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+Emitted 'error' event on Server instance at:
+[90m    at emitErrorNT (node:net:1844:8)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+
+Node.js v18.20.6
+[90m1:10:39 PM[39m [96m[tsx][39m [95mchange[39m in [92m./src/routes/users.ts[39m [33mRerunning...[39m
+cnode:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+[90m    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)[39m
+[90m    at __node_internal_uvExceptionWithHostPort (node:internal/errors:593:12)[39m
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at Function.listen (/Users/namnth/Desktop/code/fe-interview-hub/node_modules/[4m.pnpm[24m/express@4.21.2/node_modules/[4mexpress[24m/lib/application.js:635:24)
+    at start [90m(/Users/namnth/Desktop/code/fe-interview-hub/apps/api/[39msrc/server.ts:10:7[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+Emitted 'error' event on Server instance at:
+[90m    at emitErrorNT (node:net:1844:8)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+
+Node.js v18.20.6
+[90m1:10:52 PM[39m [96m[tsx][39m [95mchange[39m in [92m./src/repositories/knowledgeBaseRepository.ts[39m [33mRerunning...[39m
+cnode:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::4000
+[90m    at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)[39m
+[90m    at __node_internal_uvExceptionWithHostPort (node:internal/errors:593:12)[39m
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at Function.listen (/Users/namnth/Desktop/code/fe-interview-hub/node_modules/[4m.pnpm[24m/express@4.21.2/node_modules/[4mexpress[24m/lib/application.js:635:24)
+    at start [90m(/Users/namnth/Desktop/code/fe-interview-hub/apps/api/[39msrc/server.ts:10:7[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+Emitted 'error' event on Server instance at:
+[90m    at emitErrorNT (node:net:1844:8)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)[39m {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+
+Node.js v18.20.6
