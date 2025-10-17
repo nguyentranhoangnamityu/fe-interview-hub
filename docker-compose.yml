@@ -4,7 +4,7 @@ services:
   api:
     build:
       context: .
-      target: api
+      dockerfile: apps/api/Dockerfile
     environment:
       PORT: "4000"
       NODE_ENV: "production"
@@ -17,7 +17,7 @@ services:
   admin:
     build:
       context: .
-      target: admin
+      dockerfile: apps/admin/Dockerfile
       args:
         VITE_API_URL: http://api:4000/api
     depends_on:
@@ -29,7 +29,7 @@ services:
   web:
     build:
       context: .
-      target: web
+      dockerfile: apps/web/Dockerfile
       args:
         VITE_API_BASE_URL: http://api:4000/api
         VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
