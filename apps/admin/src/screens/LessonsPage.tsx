@@ -39,7 +39,7 @@ type LessonFormModalProps = {
   techStacksLoading: boolean
 }
 
-type LessonDetailModalProps = {
+export type LessonDetailModalProps = {
   lesson: Lesson
   onClose: () => void
   techStacksMap: Map<string, string>
@@ -516,7 +516,7 @@ const LessonFormModal = ({
 }
 
 
-const LessonDetailModal = ({ lesson, onClose, techStacksMap }: LessonDetailModalProps) => (
+export const LessonDetailModal = ({ lesson, onClose, techStacksMap }: LessonDetailModalProps) => (
   <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm">
     <div className="flex h-full items-center justify-center p-4 sm:p-6">
       <motion.div

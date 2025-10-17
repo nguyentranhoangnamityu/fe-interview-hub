@@ -1,10 +1,10 @@
-import { Mail, Calendar, CheckCircle, XCircle, Search, Filter, Plus, Edit, Trash2, Eye } from 'lucide-react'
+import { Mail, Calendar, CheckCircle, XCircle, Search, Filter, Plus, Edit, Trash2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useAdmin } from '../providers/AdminProvider'
 
 export const UsersPage = () => {
-  const { users, usersLoading, fetchUsers, createUser, updateUser, deleteUser } = useAdmin()
+  const { users, usersLoading, createUser, updateUser, deleteUser } = useAdmin()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
   const [showCreateModal, setShowCreateModal] = useState(false)

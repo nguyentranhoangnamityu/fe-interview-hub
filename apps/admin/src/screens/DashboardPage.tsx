@@ -5,12 +5,10 @@ import {
   TrendingUp,
   Clock,
   CheckCircle,
-  Activity,
-  UserPlus
+  Activity
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAdmin } from '../providers/AdminProvider'
-import { useEffect } from 'react'
 
 export const DashboardPage = () => {
   const { stats, activities, loading, activitiesLoading } = useAdmin()

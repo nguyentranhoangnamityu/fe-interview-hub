@@ -1,36 +1,67 @@
+import type {
+  CreateLessonPayload,
+  Lesson,
+  TechStack,
+  UpdateLessonPayload,
+} from '@fehub/types'
+
+export type AdminStats = {
+  totalUsers: number
+  totalLessons: number
+  totalProgress: number
+  averageCompletionRate: number
+  recentSignups: number
+  activeUsers: number
+}
+
+export type AdminUser = {
+  id: string
+  name: string
+  email: string
+  picture?: string
+  joinDate: string
+  status: 'active' | 'suspended'
+}
+
+export type AdminActivity = {
+  id: string
+  type: string
+  message: string
+  timestamp: string
+  userId?: string
+  lessonId?: string
+}
+
+type UsersApiResponse = { users: AdminUser[] } | AdminUser[]
+type LessonsApiResponse = { lessons: Lesson[] } | Lesson[]
+type TechStacksApiResponse = { techStacks: TechStack[] } | TechStack[]
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
 
 class ApiClient {
-  private baseURL: string
-
-  constructor(baseURL: string) {
-    this.baseURL = baseURL
-  }
+  constructor(private readonly baseURL: string) {}
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<{ data: T }> {
     const url = `${this.baseURL}${endpoint}`
 
-    const headers: HeadersInit = {
-      'Cache-Control': 'no-cache',
-      ...options.headers,
+    const headers = new Headers(options.headers ?? {})
+    if (!headers.has('Cache-Control')) {
+      headers.set('Cache-Control', 'no-cache')
     }
 
     const shouldIncludeJson = options.body !== undefined && options.method !== 'GET'
-    if (shouldIncludeJson) {
-      headers['Content-Type'] = headers['Content-Type'] ?? 'application/json'
+    if (shouldIncludeJson && !headers.has('Content-Type')) {
+      headers.set('Content-Type', 'application/json')
     }
 
-    const config: RequestInit = {
+    const response = await fetch(url, {
       ...options,
       headers,
-    }
-
-    console.log(`API Request: ${config.method || 'GET'} ${url}`)
-    const response = await fetch(url, config)
-    console.log(`API Response: ${response.status} ${response.statusText}`)
+    })
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      const message = await response.text()
+      throw new Error(message || `HTTP error! status: ${response.status}`)
     }
 
     if (response.status === 204) {
@@ -41,15 +72,15 @@ class ApiClient {
     const json = text ? JSON.parse(text) : undefined
     const payload =
       json && typeof json === 'object' && 'data' in json
-        ? (json.data as T)
+        ? (json as { data: T }).data
         : (json as T)
-    console.log('API Data:', payload)
+
     return { data: payload }
   }
 
   async getDashboardStats() {
     const timestamp = Date.now()
-    return this.request(`/admin/dashboard/stats?t=${timestamp}`)
+    return this.request<AdminStats>(`/admin/dashboard/stats?t=${timestamp}`)
   }
 
   async getUsers(options: { page?: number; limit?: number; status?: string } = {}) {
@@ -63,25 +94,25 @@ class ApiClient {
     const queryString = params.toString()
     const endpoint = `/users?${queryString}`
 
-    return this.request(endpoint)
+    return this.request<UsersApiResponse>(endpoint)
   }
 
   async createUser(userData: { name: string; email: string; picture?: string }) {
-    return this.request('/users', {
+    return this.request<AdminUser>('/users', {
       method: 'POST',
       body: JSON.stringify(userData),
     })
   }
 
-  async updateUser(userId: string, updates: any) {
-    return this.request(`/users/${userId}`, {
+  async updateUser(userId: string, updates: Partial<AdminUser>) {
+    return this.request<AdminUser>(`/users/${userId}`, {
       method: 'PUT',
       body: JSON.stringify(updates),
     })
   }
 
   async deleteUser(userId: string) {
-    return this.request(`/users/${userId}`, {
+    await this.request<undefined>(`/users/${userId}`, {
       method: 'DELETE',
     })
   }
@@ -89,24 +120,24 @@ class ApiClient {
   async getLessons(techStack?: string) {
     const timestamp = Date.now()
     const endpoint = techStack ? `/lessons?techStack=${techStack}&t=${timestamp}` : `/lessons?t=${timestamp}`
-    return this.request(endpoint)
+    return this.request<LessonsApiResponse>(endpoint)
   }
 
   async getTechStacks() {
     const timestamp = Date.now()
-    return this.request(`/tech-stacks?t=${timestamp}`)
+    return this.request<TechStacksApiResponse>(`/tech-stacks?t=${timestamp}`)
   }
 
-  async createLesson(lessonData: any) {
-    return this.request('/lessons', {
+  async createLesson(lessonData: CreateLessonPayload) {
+    return this.request<Lesson>('/lessons', {
       method: 'POST',
       body: JSON.stringify(lessonData),
     })
   }
 
-  async updateLesson(lessonId: string, updates: any) {
+  async updateLesson(lessonId: string, updates: UpdateLessonPayload) {
     const encodedId = encodeURIComponent(lessonId)
-    return this.request(`/lessons/${encodedId}`, {
+    return this.request<Lesson>(`/lessons/${encodedId}`, {
       method: 'PUT',
       body: JSON.stringify(updates),
     })
@@ -114,35 +145,21 @@ class ApiClient {
 
   async deleteLesson(lessonId: string) {
     const encodedId = encodeURIComponent(lessonId)
-    const endpoint = `/lessons/${encodedId}`
-
-    console.log(`API Request: DELETE ${this.baseURL}${endpoint}`)
-    const response = await fetch(`${this.baseURL}${endpoint}`, {
+    await this.request<undefined>(`/lessons/${encodedId}`, {
       method: 'DELETE',
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
     })
-
-    console.log(`API Response: ${response.status} ${response.statusText}`)
-
-    if (!response.ok && response.status !== 204) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    return { data: undefined as T }
   }
 
   async getRecentActivities(limit = 10) {
-    return this.request(`/admin/activities?limit=${limit}`)
+    return this.request<AdminActivity[]>(`/admin/activities?limit=${limit}`)
   }
 
   async getProgressStats() {
-    return this.request('/admin/progress/overview')
+    return this.request<Record<string, unknown>>('/admin/progress/overview')
   }
 
   async getLessonProgress(lessonId: string) {
-    return this.request(`/admin/progress/lessons/${lessonId}`)
+    return this.request<Record<string, unknown>>(`/admin/progress/lessons/${lessonId}`)
   }
 
   async getSystemInfo() {

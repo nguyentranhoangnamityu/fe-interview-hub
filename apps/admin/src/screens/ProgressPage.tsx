@@ -1,9 +1,9 @@
-import { BarChart3, TrendingUp, Users, BookOpen, Activity, Clock, CheckCircle } from 'lucide-react'
+import { TrendingUp, Users, BookOpen, Activity } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAdmin } from '../providers/AdminProvider'
 
 export const ProgressPage = () => {
-  const { stats, lessons, users, loading } = useAdmin()
+  const { stats, lessons, loading } = useAdmin()
 
   const progressStats = [
     {

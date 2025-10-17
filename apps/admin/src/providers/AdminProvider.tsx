@@ -1,45 +1,64 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react'
-import type { TechStack, CreateLessonPayload, UpdateLessonPayload } from '@fehub/types'
-import { apiClient } from '../lib/apiClient'
+import type { CreateLessonPayload, Lesson, TechStack, UpdateLessonPayload } from '@fehub/types'
+import { apiClient, type AdminActivity, type AdminStats, type AdminUser } from '../lib/apiClient'
 
-interface AdminStats {
-  totalUsers: number
-  totalLessons: number
-  totalProgress: number
-  averageCompletionRate: number
-  recentSignups: number
-  activeUsers: number
+const isAdminUser = (value: unknown): value is AdminUser => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+  const candidate = value as Partial<AdminUser>
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.name === 'string' &&
+    typeof candidate.email === 'string' &&
+    typeof candidate.status === 'string' &&
+    typeof candidate.joinDate === 'string'
+  )
 }
 
-interface User {
-  id: string
-  name: string
-  email: string
-  picture?: string
-  joinDate: string
-  status: 'active' | 'suspended'
+const isLesson = (value: unknown): value is Lesson => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+  const candidate = value as Partial<Lesson>
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.title === 'string' &&
+    typeof candidate.description === 'string' &&
+    typeof candidate.difficulty === 'string' &&
+    typeof candidate.techStack === 'string' &&
+    typeof candidate.estimatedTime === 'number' &&
+    Array.isArray(candidate.tags) &&
+    Array.isArray(candidate.sections)
+  )
 }
 
-interface Lesson {
-  id: string
-  title: string
-  description: string
-  difficulty: string
-  estimatedTime: number
-  techStack: string
-  tags: string[]
-  status?: string
-  students?: number
-  completionRate?: number
+const isAdminActivity = (value: unknown): value is AdminActivity => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+  const candidate = value as Partial<AdminActivity>
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.type === 'string' &&
+    typeof candidate.message === 'string' &&
+    typeof candidate.timestamp === 'string'
+  )
 }
 
-interface Activity {
-  id: string
-  type: string
-  message: string
-  timestamp: string
-  userId?: string
-  lessonId?: string
+const isTechStack = (value: unknown): value is TechStack => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+  const candidate = value as Partial<TechStack>
+  return (
+    typeof candidate.id === 'string' &&
+    typeof candidate.name === 'string' &&
+    typeof candidate.description === 'string' &&
+    typeof candidate.logo === 'string' &&
+    typeof candidate.color === 'string' &&
+    Array.isArray(candidate.lessons)
+  )
 }
 
 interface AdminContextType {
@@ -49,7 +68,7 @@ interface AdminContextType {
   error: string | null
   
   // Users
-  users: User[]
+  users: AdminUser[]
   usersLoading: boolean
   
   // Lessons
@@ -59,7 +78,7 @@ interface AdminContextType {
   techStacksLoading: boolean
   
   // Activities
-  activities: Activity[]
+  activities: AdminActivity[]
   activitiesLoading: boolean
   
   // Actions
@@ -69,7 +88,7 @@ interface AdminContextType {
   fetchTechStacks: () => Promise<void>
   fetchRecentActivities: (limit?: number) => Promise<void>
   createUser: (userData: { name: string; email: string; picture?: string }) => Promise<void>
-  updateUser: (userId: string, updates: any) => Promise<void>
+  updateUser: (userId: string, updates: Partial<AdminUser>) => Promise<void>
   deleteUser: (userId: string) => Promise<void>
   createLesson: (lessonData: CreateLessonPayload) => Promise<void>
   updateLesson: (lessonId: string, updates: UpdateLessonPayload) => Promise<void>
@@ -95,7 +114,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   
-  const [users, setUsers] = useState<User[]>([])
+  const [users, setUsers] = useState<AdminUser[]>([])
   const [usersLoading, setUsersLoading] = useState(false)
   
   const [lessons, setLessons] = useState<Lesson[]>([])
@@ -103,7 +122,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
   const [techStacks, setTechStacks] = useState<TechStack[]>([])
   const [techStacksLoading, setTechStacksLoading] = useState(false)
   
-  const [activities, setActivities] = useState<Activity[]>([])
+  const [activities, setActivities] = useState<AdminActivity[]>([])
   const [activitiesLoading, setActivitiesLoading] = useState(false)
   const hasLoadedInitialData = useRef(false)
 
@@ -130,14 +149,13 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       const apiResponse = response.data
       
       // Handle users response - it might have a different structure
-      let usersArray = []
-      if (apiResponse) {
-        if (apiResponse.users && Array.isArray(apiResponse.users)) {
-          usersArray = apiResponse.users
-        } else if (Array.isArray(apiResponse)) {
-          usersArray = apiResponse
-        } else if (typeof apiResponse === 'object') {
-          usersArray = Object.values(apiResponse)
+      let usersArray: AdminUser[] = []
+      if (Array.isArray(apiResponse)) {
+        usersArray = apiResponse.filter(isAdminUser)
+      } else if (apiResponse && typeof apiResponse === 'object') {
+        const maybeUsers = (apiResponse as { users?: unknown }).users
+        if (Array.isArray(maybeUsers)) {
+          usersArray = maybeUsers.filter(isAdminUser)
         }
       }
       
@@ -167,18 +185,16 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       // Normalize different response shapes
       let lessonsArray: Lesson[] = []
       if (Array.isArray(apiResponse)) {
-        lessonsArray = apiResponse
+        lessonsArray = apiResponse.filter(isLesson)
       } else if (apiResponse && typeof apiResponse === 'object') {
-        const { lessons: lessonsField } = apiResponse as { lessons?: Lesson[] }
+        const maybeLessons = (apiResponse as { lessons?: unknown }).lessons
 
-        if (Array.isArray(lessonsField)) {
-          lessonsArray = lessonsField
+        if (Array.isArray(maybeLessons)) {
+          lessonsArray = maybeLessons.filter(isLesson)
         } else {
-          const values = Object.values(apiResponse)
-          const flattened = values.flatMap(value => Array.isArray(value) ? value : [value])
-          lessonsArray = flattened.filter(
-            (item): item is Lesson => item && typeof item === 'object' && 'title' in item
-          )
+          lessonsArray = Object.values(apiResponse)
+            .flatMap((value) => (Array.isArray(value) ? value : [value]))
+            .filter(isLesson)
         }
       }
       
@@ -203,13 +219,11 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
       const apiResponse = response.data
       
       // Convert object with numeric keys to array
-      let activitiesArray = []
-      if (apiResponse) {
-        if (Array.isArray(apiResponse)) {
-          activitiesArray = apiResponse
-        } else if (typeof apiResponse === 'object') {
-          activitiesArray = Object.values(apiResponse)
-        }
+      let activitiesArray: AdminActivity[] = []
+      if (Array.isArray(apiResponse)) {
+        activitiesArray = apiResponse.filter(isAdminActivity)
+      } else if (apiResponse && typeof apiResponse === 'object') {
+        activitiesArray = Object.values(apiResponse).filter(isAdminActivity)
       }
       
       console.log('Activities array:', activitiesArray)
@@ -227,12 +241,16 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
     try {
       const response = await apiClient.getTechStacks()
       const apiResponse = response.data
-      const stacksArray =
-        apiResponse && typeof apiResponse === 'object' && Array.isArray((apiResponse as { data?: TechStack[] }).data)
-          ? (apiResponse as { data: TechStack[] }).data
-          : Array.isArray(apiResponse)
-            ? (apiResponse as TechStack[])
-            : []
+      let stacksArray: TechStack[] = []
+
+      if (Array.isArray(apiResponse)) {
+        stacksArray = apiResponse.filter(isTechStack)
+      } else if (apiResponse && typeof apiResponse === 'object') {
+        const maybeStacks = (apiResponse as { techStacks?: unknown }).techStacks
+        if (Array.isArray(maybeStacks)) {
+          stacksArray = maybeStacks.filter(isTechStack)
+        }
+      }
       setTechStacks(stacksArray)
     } catch (err) {
       console.error('Failed to fetch tech stacks:', err)
@@ -252,7 +270,7 @@ export const AdminProvider = ({ children }: AdminProviderProps) => {
     }
   }
 
-  const updateUser = async (userId: string, updates: any) => {
+  const updateUser = async (userId: string, updates: Partial<AdminUser>) => {
     try {
       await apiClient.updateUser(userId, updates)
       await fetchUsers() // Refresh users list
