@@ -1,0 +1,13 @@
+.git
+.gitignore
+node_modules
+.pnpm-store
+.turbo
+apps/*/node_modules
+packages/*/node_modules
+.env
+dist
+Dockerfile.*
+**/*.log
+*.local
+.cursor
