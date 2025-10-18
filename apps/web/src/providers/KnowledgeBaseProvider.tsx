@@ -48,6 +48,7 @@ type KnowledgeBaseContextValue = {
   lessons: Lesson[]
   getLesson: (lessonId: string) => Lesson | undefined
   getLessonsByTechStack: (techStackId: string) => Lesson[]
+  fetchLessonsByTechStack: (techStackId: string) => Promise<Lesson[]>
   createLesson: (lesson: CreateLessonPayload) => Promise<Lesson>
   updateLesson: (lessonId: string, updates: UpdateLessonPayload) => Promise<Lesson | undefined>
   deleteLesson: (lessonId: string) => Promise<void>
@@ -236,6 +237,49 @@ export const KnowledgeBaseProvider = ({ children }: { children: ReactNode }) => 
 
   const getLessonsByTechStack = useCallback((techStackId: string) => {
     return lessonsRef.current.filter((lesson) => lesson.techStack === techStackId)
+  }, [])
+
+  const fetchLessonsByTechStack = useCallback(async (techStackId: string) => {
+    try {
+      const remoteLessons = await apiClient.listLessons(techStackId)
+      setLessons((prev) => {
+        const remaining = prev.filter((lesson) => lesson.techStack !== techStackId)
+        const next = [...remaining, ...remoteLessons]
+        lessonsRef.current = next
+        if (baseDataCache) {
+          baseDataCache = {
+            techStacks: baseDataCache.techStacks,
+            lessons: deepClone(next),
+          }
+        }
+        return next
+      })
+      setTechStacks((prev) => {
+        const target = prev[techStackId]
+        if (!target) {
+          return prev
+        }
+        const lessonIds = remoteLessons.map((lesson) => lesson.id)
+        const nextStacks = {
+          ...prev,
+          [techStackId]: {
+            ...target,
+            lessons: lessonIds,
+          },
+        }
+        if (baseDataCache) {
+          baseDataCache = {
+            techStacks: deepClone(nextStacks),
+            lessons: baseDataCache.lessons,
+          }
+        }
+        return nextStacks
+      })
+      return remoteLessons
+    } catch (error) {
+      console.error('Failed to fetch lessons for tech stack', techStackId, error)
+      throw error
+    }
   }, [])
 
   const createLesson = useCallback(async (lesson: CreateLessonPayload) => {
@@ -639,6 +683,7 @@ export const KnowledgeBaseProvider = ({ children }: { children: ReactNode }) => 
       lessons,
       getLesson,
       getLessonsByTechStack,
+      fetchLessonsByTechStack,
       createLesson,
       updateLesson,
       deleteLesson,
@@ -656,6 +701,7 @@ export const KnowledgeBaseProvider = ({ children }: { children: ReactNode }) => 
       lessons,
       getLesson,
       getLessonsByTechStack,
+      fetchLessonsByTechStack,
       createLesson,
       updateLesson,
       deleteLesson,

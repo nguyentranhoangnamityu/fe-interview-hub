@@ -20,6 +20,10 @@ const routeConfigs: Record<string, RouteConfig> = {
     title: 'Cơ sở kiến thức - FE Interview Hub',
     favicon: '/favicon-knowledge.svg'
   },
+  '/knowledge-base/explorer': {
+    title: 'Knowledge Explorer - FE Interview Hub',
+    favicon: '/favicon-knowledge.svg'
+  },
   '/ai-interview': {
     title: 'Phỏng vấn AI - FE Interview Hub',
     favicon: '/favicon-ai.svg'
@@ -30,7 +34,11 @@ const routeConfigs: Record<string, RouteConfig> = {
   }
 }
 
-const getRouteConfig = (pathname: string, getLesson?: (lessonId: string) => any): RouteConfig => {
+const getRouteConfig = (
+  pathname: string,
+  getLesson?: (lessonId: string) => any,
+  techStacks?: Record<string, { name: string }>,
+): RouteConfig => {
   // Kiểm tra các route cụ thể trước
   if (pathname.startsWith('/knowledge-base/') && pathname.includes('/quiz')) {
     const lessonId = pathname.split('/')[2]
@@ -51,7 +59,19 @@ const getRouteConfig = (pathname: string, getLesson?: (lessonId: string) => any)
       favicon: '/favicon-interview.svg'
     }
   }
-  
+  if (pathname.startsWith('/knowledge-base/explorer/')) {
+    const stackId = pathname.split('/')[3]
+    const stackName = techStacks?.[stackId]?.name ?? 'Knowledge Explorer'
+    return {
+      title: `${stackName} - Knowledge Explorer - FE Interview Hub`,
+      favicon: '/favicon-knowledge.svg'
+    }
+  }
+
+  if (pathname.startsWith('/knowledge-base/explorer')) {
+    return routeConfigs['/knowledge-base/explorer']
+  }
+
   if (pathname.startsWith('/knowledge-base/')) {
     const lessonId = pathname.split('/')[2]
     const lesson = getLesson?.(lessonId)
@@ -76,10 +96,10 @@ const getRouteConfig = (pathname: string, getLesson?: (lessonId: string) => any)
 
 export const useDynamicTitle = () => {
   const location = useLocation()
-  const { getLesson } = useKnowledgeBase()
+  const { getLesson, techStacks } = useKnowledgeBase()
 
   useEffect(() => {
-    const config = getRouteConfig(location.pathname, getLesson)
+    const config = getRouteConfig(location.pathname, getLesson, techStacks)
     
     // Cập nhật title
     document.title = config.title
@@ -96,5 +116,5 @@ export const useDynamicTitle = () => {
       link.href = config.favicon
       document.head.appendChild(link)
     }
-  }, [location.pathname, getLesson])
+  }, [location.pathname, getLesson, techStacks])
 }

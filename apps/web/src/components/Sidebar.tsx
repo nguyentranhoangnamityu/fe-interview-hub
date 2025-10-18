@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@fehub/ui'
 import { cn } from '@fehub/ui'
 import { useAuth } from '../providers/AuthProvider'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 
 interface SidebarProps {
   className?: string
@@ -12,7 +12,14 @@ interface SidebarProps {
   onToggleCollapse?: () => void
 }
 
-const menuItems = [
+type MenuItem = {
+  title: string
+  href: string
+  icon: ReactNode
+  isActive?: (pathname: string) => boolean
+}
+
+const menuItems: MenuItem[] = [
   {
     title: 'Dashboard',
     href: '/dashboard',
@@ -26,9 +33,21 @@ const menuItems = [
   {
     title: 'Knowledge Base',
     href: '/knowledge-base',
+    isActive: (pathname: string) =>
+      pathname === '/knowledge-base' || /^\/knowledge-base\/(?!explorer).+/.test(pathname),
     icon: (
       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Knowledge Explorer',
+    href: '/knowledge-base/explorer',
+    isActive: (pathname: string) => pathname.startsWith('/knowledge-base/explorer'),
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h4v4H4V6zm6 0h4v4h-4V6zm6 0h4v4h-4V6zM4 12h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 18h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z" />
       </svg>
     ),
   },
@@ -200,8 +219,10 @@ export const Sidebar = ({ className, isOpen = true, onClose, isCollapsed = false
           <nav className="flex-1 px-3 sm:px-4 md:px-4 lg:px-3 xl:px-4 py-4 sm:py-5 md:py-6 lg:py-4 xl:py-6">
             <ul className="space-y-1 sm:space-y-1.5 md:space-y-2">
               {menuItems.map((item) => {
-                const isActive = location.pathname === item.href || 
-                  (item.href !== '/dashboard' && location.pathname.startsWith(item.href))
+                const isActive = item.isActive
+                  ? item.isActive(location.pathname)
+                  : location.pathname === item.href ||
+                    (item.href !== '/dashboard' && location.pathname.startsWith(item.href))
                 
                 return (
                   <li key={item.href}>

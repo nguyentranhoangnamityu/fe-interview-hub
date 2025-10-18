@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Login to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo "Building Docker images..."
+      - docker build -t fe-interview-hub-api -f apps/api/Dockerfile .
+      - docker build -t fe-interview-hub-web -f apps/web/Dockerfile .
+      - docker build -t fe-interview-hub-admin -f apps/admin/Dockerfile .
+
+      - echo "Tagging images..."
+      - docker tag fe-interview-hub-api:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-api:latest
+      - docker tag fe-interview-hub-web:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-web:latest
+      - docker tag fe-interview-hub-admin:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-admin:latest
+
+  post_build:
+    commands:
+      - echo "Pushing Docker images..."
+      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-api:latest
+      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-web:latest
+      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/fe-interview-hub-admin:latest
+
+artifacts:
+  files:
+    - Dockerrun.aws.json

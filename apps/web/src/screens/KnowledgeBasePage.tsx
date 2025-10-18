@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
 import { Button } from '@fehub/ui'
 import { Link } from 'react-router-dom'
 
+import { TechStackLogo } from '../components/TechStackLogo'
 import { useAuth } from '../providers/AuthProvider'
 import { useKnowledgeBase, type Lesson } from '../providers/KnowledgeBaseProvider'
 
@@ -183,6 +184,7 @@ export const KnowledgeBasePage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null)
   const [selectedTechStack, setSelectedTechStack] = useState<string | null>(null)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const activeTechStack = selectedTechStack ? techStacks[selectedTechStack] ?? null : null
   const customLessons = useMemo(
     () => lessons.filter((lesson) => lesson.origin !== 'seed'),
     [lessons],
@@ -488,7 +490,14 @@ export const KnowledgeBasePage = () => {
                       }
                       type="button"
                     >
-                      <span>{techStack.logo}</span>
+                      <span className="flex h-5 w-5 items-center justify-center">
+                        <TechStackLogo
+                          techStackId={techStack.id}
+                          name={techStack.name}
+                          fallback={techStack.logo}
+                          size={20}
+                        />
+                      </span>
                       {techStack.name}
                     </button>
                   ))}
@@ -558,10 +567,17 @@ export const KnowledgeBasePage = () => {
                 <div className="mt-6 space-y-3 rounded-2xl border border-indigo-200/60 bg-indigo-50/70 p-4 text-xs text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-200">
                   <p className="font-semibold uppercase tracking-[0.3em]">Đang lọc</p>
                   <div className="flex flex-wrap gap-2">
-                    {selectedTechStack ? (
+                    {activeTechStack ? (
                       <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 font-semibold text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-100">
-                        <span>{techStacks[selectedTechStack]?.logo}</span>
-                        {techStacks[selectedTechStack]?.name}
+                        <span className="flex h-5 w-5 items-center justify-center">
+                          <TechStackLogo
+                            techStackId={activeTechStack.id}
+                            name={activeTechStack.name}
+                            fallback={activeTechStack.logo}
+                            size={18}
+                          />
+                        </span>
+                        {activeTechStack.name}
                         <button
                           className="text-[10px] uppercase tracking-[0.2em]"
                           onClick={() => setSelectedTechStack(null)}
@@ -622,6 +638,7 @@ export const KnowledgeBasePage = () => {
                     const status: LessonStatusKey = record?.status ?? 'not_started'
                     const chip = statusStyles[status]
                     const safePercent = Math.min(100, Math.max(0, percent))
+                    const lessonTech = techStacks[lesson.techStack] ?? null
                     return (
                       <Link
                         key={lesson.id}
@@ -663,8 +680,15 @@ export const KnowledgeBasePage = () => {
                           </div>
                           <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400 sm:gap-3">
                             <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 dark:bg-slate-800 sm:px-3">
-                              <span>{techStacks[lesson.techStack]?.logo}</span>
-                              <span className="hidden sm:inline">{techStacks[lesson.techStack]?.name}</span>
+                              <span className="flex h-4 w-4 items-center justify-center">
+                                <TechStackLogo
+                                  techStackId={lessonTech?.id}
+                                  name={lessonTech?.name ?? 'Tech stack'}
+                                  fallback={lessonTech?.logo}
+                                  size={16}
+                                />
+                              </span>
+                              <span className="hidden sm:inline">{lessonTech?.name}</span>
                             </span>
                             <span className="rounded-full bg-slate-100 px-2 py-1 dark:bg-slate-800 sm:px-3">
                               {lesson.sections.length} mục
@@ -808,7 +832,7 @@ export const KnowledgeBasePage = () => {
                 >
                   {Object.values(techStacks).map((techStack) => (
                     <option key={techStack.id} value={techStack.id}>
-                      {techStack.logo} {techStack.name}
+                      {techStack.name}
                     </option>
                   ))}
                 </select>

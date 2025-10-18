@@ -3,8 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { LoginPage } from '../screens/LoginPage'
 import { NotFoundPage } from '../screens/NotFoundPage'
 import { DashboardPage } from '../screens/DashboardPage'
-import { KnowledgeBaseLessonPage } from '../screens/KnowledgeBaseLessonPage'
 import { KnowledgeBasePage } from '../screens/KnowledgeBasePage'
+import { KnowledgeBaseLessonPage } from '../screens/KnowledgeBaseLessonPage'
+import { KnowledgeBaseExplorerPage } from '../screens/KnowledgeBaseExplorerPage'
+import { KnowledgeBaseExplorerStackPage } from '../screens/KnowledgeBaseExplorerStackPage'
 import { QuizPage } from '../screens/QuizPage'
 import { MockInterviewLevelPage } from '../screens/MockInterviewLevelPage'
 import { MockInterviewAIPage } from '../screens/MockInterviewAIPage'
@@ -30,6 +32,22 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <KnowledgeBasePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/knowledge-base/explorer"
+        element={
+          <ProtectedRoute>
+            <KnowledgeBaseExplorerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/knowledge-base/explorer/:techStackId"
+        element={
+          <ProtectedRoute>
+            <KnowledgeBaseExplorerStackPage />
           </ProtectedRoute>
         }
       />
