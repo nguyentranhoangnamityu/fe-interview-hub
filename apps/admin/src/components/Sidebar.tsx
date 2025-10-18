@@ -5,6 +5,7 @@ import {
   BookOpen, 
   Users, 
   BarChart3, 
+  ClipboardList,
   Settings, 
   LogOut, 
   X,
@@ -41,6 +42,11 @@ const menuItems = [
     title: 'Tiến độ',
     href: '/admin/progress',
     icon: BarChart3,
+  },
+  {
+    title: 'Interview Prep',
+    href: '/admin/interview-preps',
+    icon: ClipboardList,
   },
   {
     title: 'Cài đặt',

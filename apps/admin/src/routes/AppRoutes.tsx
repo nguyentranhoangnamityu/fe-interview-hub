@@ -6,6 +6,7 @@ import { LessonDetailPage } from '../screens/LessonDetailPage'
 import { UsersPage } from '../screens/UsersPage'
 import { ProgressPage } from '../screens/ProgressPage'
 import { SettingsPage } from '../screens/SettingsPage'
+import { InterviewPrepsPage } from '../screens/InterviewPrepsPage'
 import { ProtectedRoute } from './ProtectedRoute'
 import { AdminLayout } from '../components/AdminLayout'
 
@@ -26,6 +27,7 @@ export const AppRoutes = () => {
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="lessons" element={<LessonsPage />} />
         <Route path="lessons/:lessonId" element={<LessonDetailPage />} />
+        <Route path="interview-preps" element={<InterviewPrepsPage />} />
         <Route path="users" element={<UsersPage />} />
         <Route path="progress" element={<ProgressPage />} />
         <Route path="settings" element={<SettingsPage />} />

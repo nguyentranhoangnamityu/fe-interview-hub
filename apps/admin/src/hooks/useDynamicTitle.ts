@@ -27,6 +27,10 @@ const routeConfigs: Record<string, RouteConfig> = {
     title: 'Quản lý Tiến độ - FE Interview Hub',
     favicon: '/favicon-admin.svg'
   },
+  '/admin/interview-preps': {
+    title: 'Quản lý Interview Prep - FE Interview Hub',
+    favicon: '/favicon-admin.svg'
+  },
   '/admin/settings': {
     title: 'Cài đặt Admin - FE Interview Hub',
     favicon: '/favicon-admin.svg'

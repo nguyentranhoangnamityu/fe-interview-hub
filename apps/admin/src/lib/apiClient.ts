@@ -1,7 +1,10 @@
 import type {
+  CreateInterviewPrepPayload,
   CreateLessonPayload,
+  InterviewPrep,
   Lesson,
   TechStack,
+  UpdateInterviewPrepPayload,
   UpdateLessonPayload,
 } from '@fehub/types'
 
@@ -146,6 +149,38 @@ class ApiClient {
   async deleteLesson(lessonId: string) {
     const encodedId = encodeURIComponent(lessonId)
     await this.request<undefined>(`/lessons/${encodedId}`, {
+      method: 'DELETE',
+    })
+  }
+
+  async getInterviewPreps() {
+    const timestamp = Date.now()
+    return this.request<InterviewPrep[]>(`/interview-preps?t=${timestamp}`)
+  }
+
+  async getInterviewPrep(prepId: string) {
+    const encodedId = encodeURIComponent(prepId)
+    return this.request<InterviewPrep>(`/interview-preps/${encodedId}`)
+  }
+
+  async createInterviewPrep(payload: CreateInterviewPrepPayload) {
+    return this.request<InterviewPrep>('/interview-preps', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+  }
+
+  async updateInterviewPrep(prepId: string, payload: UpdateInterviewPrepPayload) {
+    const encodedId = encodeURIComponent(prepId)
+    return this.request<InterviewPrep>(`/interview-preps/${encodedId}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    })
+  }
+
+  async deleteInterviewPrep(prepId: string) {
+    const encodedId = encodeURIComponent(prepId)
+    await this.request<undefined>(`/interview-preps/${encodedId}`, {
       method: 'DELETE',
     })
   }

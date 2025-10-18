@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@fehub/ui'
 
 import { TechStackLogo } from '../components/TechStackLogo'
 import { useKnowledgeBase } from '../providers/KnowledgeBaseProvider'
+import { useTechStackLessons } from '../hooks/useTechStackLessons'
 
 const lessonStatusConfig: Record<
   'not_started' | 'in_progress' | 'completed',
@@ -42,66 +43,23 @@ const withAlpha = (hexColor: string, alpha: number) => {
 export const KnowledgeBaseExplorerStackPage = () => {
   const navigate = useNavigate()
   const { techStackId } = useParams<{ techStackId: string }>()
+  const { getLessonProgress } = useKnowledgeBase()
   const {
-    techStacks,
-    getLessonsByTechStack,
-    getLessonProgress,
-    fetchLessonsByTechStack,
-  } = useKnowledgeBase()
-
-  const stack = techStackId ? techStacks[techStackId] ?? null : null
-  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
-  const [error, setError] = useState<string | null>(null)
-  const stacksLoaded = useMemo(() => Object.keys(techStacks).length > 0, [techStacks])
-
-  const lessons = useMemo(
-    () => (techStackId ? getLessonsByTechStack(techStackId) : []),
-    [techStackId, getLessonsByTechStack],
-  )
-
-  const loadLessons = useCallback(
-    async ({ force }: { force?: boolean } = {}) => {
-      if (!techStackId) {
-        return
-      }
-      if (!force && getLessonsByTechStack(techStackId).length > 0) {
-        setStatus('idle')
-        setError(null)
-        return
-      }
-      setStatus('loading')
-      setError(null)
-      try {
-        await fetchLessonsByTechStack(techStackId)
-        setStatus('idle')
-      } catch (err) {
-        console.error('Failed to load lessons for tech stack', techStackId, err)
-        setStatus('error')
-        setError('Không thể tải bài học. Vui lòng thử lại.')
-      }
-    },
-    [techStackId, fetchLessonsByTechStack, getLessonsByTechStack],
-  )
+    stack,
+    lessons,
+    status,
+    error,
+    stacksLoaded,
+    isUnknownStack,
+    retry,
+  } = useTechStackLessons(techStackId)
 
   useEffect(() => {
-    if (!techStackId) {
+    if (!techStackId || !stacksLoaded || !isUnknownStack) {
       return
     }
-    void loadLessons()
-  }, [techStackId, loadLessons])
-
-  useEffect(() => {
-    if (!techStackId || !stacksLoaded) {
-      return
-    }
-    if (!stack) {
-      navigate('/knowledge-base/explorer', { replace: true })
-    }
-  }, [stack, techStackId, stacksLoaded, navigate])
-
-  const handleRetry = () => {
-    void loadLessons({ force: true })
-  }
+    navigate('/knowledge-base/explorer', { replace: true })
+  }, [techStackId, isUnknownStack, stacksLoaded, navigate])
 
   if (!techStackId) {
     return null
@@ -199,7 +157,7 @@ export const KnowledgeBaseExplorerStackPage = () => {
           ) : status === 'error' ? (
             <div className="rounded-2xl border border-dashed border-rose-300 bg-rose-50/70 p-8 text-center dark:border-rose-500/40 dark:bg-rose-500/10">
               <p className="text-base font-semibold text-rose-600 dark:text-rose-300">{error}</p>
-              <Button onClick={handleRetry} variant="outline" className="mt-4">
+              <Button onClick={retry} variant="outline" className="mt-4">
                 Thử lại
               </Button>
             </div>

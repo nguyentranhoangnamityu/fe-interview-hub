@@ -1,8 +1,9 @@
 import type { PoolClient } from 'pg'
 
-import type { Lesson, TechStack } from '@fehub/types'
+import type { InterviewPrep, Lesson, TechStack } from '@fehub/types'
 
 import seedData from '../../../web/src/data/knowledgeBase.json'
+import interviewPrepSeed from '../data/interviewPreps.json'
 import { pool } from './client'
 
 const ensureTables = async (client: PoolClient) => {
@@ -65,6 +66,22 @@ const ensureTables = async (client: PoolClient) => {
       total_points INTEGER NOT NULL,
       completed_at TIMESTAMPTZ,
       PRIMARY KEY (user_id, lesson_id)
+    )
+  `)
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS interview_preps (
+      id TEXT PRIMARY KEY,
+      company TEXT NOT NULL,
+      position TEXT NOT NULL,
+      location TEXT,
+      logo_url TEXT NOT NULL,
+      summary TEXT NOT NULL,
+      difficulty TEXT NOT NULL,
+      tags JSONB NOT NULL DEFAULT '[]'::jsonb,
+      rounds JSONB NOT NULL DEFAULT '[]'::jsonb,
+      overall_tips JSONB NOT NULL DEFAULT '[]'::jsonb,
+      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `)
 }
@@ -165,6 +182,48 @@ const upsertLessons = async (client: PoolClient, lessons: Lesson[]) => {
   )
 }
 
+const seedInterviewPreps = async (client: PoolClient, preps: InterviewPrep[]) => {
+  if (preps.length === 0) {
+    return
+  }
+  await Promise.all(
+    preps.map((prep) =>
+      client.query(
+        `
+          INSERT INTO interview_preps (
+            id,
+            company,
+            position,
+            location,
+            logo_url,
+            summary,
+            difficulty,
+            tags,
+            rounds,
+            overall_tips,
+            last_updated
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb, $9::jsonb, $10::jsonb, COALESCE($11, NOW()))
+          ON CONFLICT (id) DO NOTHING
+        `,
+        [
+          prep.id,
+          prep.company,
+          prep.position,
+          prep.location ?? null,
+          prep.logoUrl,
+          prep.summary,
+          prep.difficulty ?? 'medium',
+          JSON.stringify(prep.tags ?? []),
+          JSON.stringify(prep.rounds ?? []),
+          JSON.stringify(prep.overallTips ?? []),
+          prep.lastUpdated ?? null,
+        ],
+      ),
+    ),
+  )
+}
+
 export const initializeDatabase = async () => {
   const client = await pool.connect()
 
@@ -177,6 +236,7 @@ export const initializeDatabase = async () => {
       ...lesson,
       origin: 'seed',
     })))
+    await seedInterviewPreps(client, interviewPrepSeed as InterviewPrep[])
 
     await client.query('COMMIT')
   } catch (error) {

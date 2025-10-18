@@ -88,3 +88,38 @@ export type LessonQuizStore = Record<string, Record<string, LessonQuizResult>>
 export type CreateLessonPayload = Omit<Lesson, 'id' | 'origin'> & { id?: string }
 
 export type UpdateLessonPayload = Partial<Omit<Lesson, 'id' | 'origin'>>
+
+export type InterviewRound = {
+  id: string
+  title: string
+  duration?: string
+  format?: string
+  focusAreas?: string[]
+  description?: string
+  sampleQuestions?: string[]
+  tips?: string[]
+  resources?: LessonResource[]
+}
+
+export type InterviewPrep = {
+  id: string
+  company: string
+  position: string
+  location?: string
+  logoUrl: string
+  summary: string
+  lastUpdated: string
+  difficulty?: 'easy' | 'medium' | 'hard'
+  tags?: string[]
+  rounds: InterviewRound[]
+  overallTips?: string[]
+}
+
+export type CreateInterviewPrepPayload = Omit<InterviewPrep, 'id' | 'lastUpdated'> & {
+  id?: string
+  lastUpdated?: string
+}
+
+export type UpdateInterviewPrepPayload = Partial<Omit<InterviewPrep, 'id'>> & {
+  id?: string
+}

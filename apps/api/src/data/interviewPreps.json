@@ -1,0 +1,459 @@
+[
+  {
+    "id": "nab-front-end-engineer",
+    "company": "NAB (National Australia Bank)",
+    "position": "Front-End Engineer",
+    "location": "Remote (Vietnam) – Global Team",
+    "logoUrl": "https://cdn.worldvectorlogo.com/logos/nab-national-australia-bank.svg",
+    "summary": "Quy trình phỏng vấn gồm 3 vòng, kết hợp giữa kiểm tra thuật toán và phỏng vấn chuyên sâu về front-end architecture, vận hành team agile.",
+    "lastUpdated": "2025-02-01",
+    "difficulty": "hard",
+    "tags": ["JavaScript", "TypeScript", "React", "System Design", "Agile"],
+    "rounds": [
+      {
+        "id": "round-1",
+        "title": "Coding Test (Codility)",
+        "duration": "110 phút",
+        "format": "Online – Codility",
+        "description": "Làm 3 bài thuật toán trên Codility. Nội dung tập trung vào xử lý dữ liệu và tối ưu hoá. 3 bài mình đều AC nhờ ôn luyện bộ đề trong cộng đồng.",
+        "focusAreas": ["Thuật toán", "Độ phức tạp", "Xử lý mảng/chuỗi"],
+        "sampleQuestions": [
+          "Đếm số cặp trong mảng thỏa điều kiện",
+          "Tối ưu truy vấn với prefix sum",
+          "Tìm đường đi trong ma trận có chướng ngại vật"
+        ],
+        "tips": [
+          "Luyện full bộ đề Codility trước khi thi",
+          "Chia thời gian hợp lý: 40p/bài và 10p đọc đề rà soát",
+          "Ưu tiên giải bài dễ trước để giữ tinh thần"
+        ]
+      },
+      {
+        "id": "round-2",
+        "title": "Technical Interview",
+        "duration": "120 phút",
+        "format": "Google Meet – 2 Senior Engineer",
+        "description": "Phỏng vấn chuyên môn sâu: JavaScript, TypeScript, React, kiến trúc state management, design pattern, SOLID, OOP, Agile/Scrum. Rất nhiều câu hỏi mở rộng, cần chuẩn bị kỹ lý thuyết + kinh nghiệm thực chiến.",
+        "focusAreas": [
+          "Event Loop & concurrency",
+          "Hoisting, scope & this binding",
+          "React lifecycle & hooks",
+          "State management (Redux, Context, Middleware)",
+          "Shadow DOM & Web Components",
+          "Micro-frontend communication",
+          "SOLID/OOP áp dụng trong frontend",
+          "Agile/Scrum events và lý do áp dụng"
+        ],
+        "sampleQuestions": [
+          "Giải thích event loop bằng ví dụ code cụ thể và thứ tự console.log",
+          "So sánh lifecycle class component vs hook, useEffect mapping sang lifecycle nào?",
+          "Cách deep compare object hiệu quả trong JS/TS?",
+          "Ưu/nhược điểm Redux middleware vs custom context?",
+          "Khi nào dùng shadow DOM và ảnh hưởng tới styling?",
+          "Thiết kế chiến lược chia sẻ state giữa các micro-frontend?",
+          "Trình bày nguyên tắc SOLID với ví dụ ở React component",
+          "Vai trò của Sprint Review vs Sprint Retrospective trong Scrum?"
+        ],
+        "tips": [
+          "Chuẩn bị 2–3 dự án thực tế để minh hoạ khi bị hỏi follow-up.",
+          "Ôn lại kiến trúc React 18, concurrent features, memoization.",
+          "Nắm rõ SOLID và design pattern áp dụng trong component/hook.",
+          "Ghi nhớ keyword quan trọng cho Agile ceremony và lý do áp dụng."
+        ],
+        "resources": [
+          {
+            "title": "Event Loop Visualized",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
+          },
+          {
+            "title": "SOLID Principles in React",
+            "url": "https://kentcdodds.com/blog/applying-solid-principles-to-react"
+          },
+          {
+            "title": "Micro frontends communication patterns",
+            "url": "https://micro-frontends.org/strategies/communication/"
+          }
+        ]
+      },
+      {
+        "id": "round-3",
+        "title": "Culture & Leadership Interview",
+        "duration": "60 phút",
+        "format": "Online – Engineering Manager",
+        "description": "Tập trung vào mindset, cách làm việc nhóm, ownership và kỳ vọng khi tham gia dự án ngân hàng toàn cầu.",
+        "focusAreas": ["Leadership mindset", "Team Communication", "Conflict resolution"],
+        "sampleQuestions": [
+          "Kể về lần bạn xử lý sự cố production.",
+          "Bạn truyền đạt kiến thức mới cho team như thế nào?",
+          "Khi disagree với Product Owner, bạn làm gì?"
+        ],
+        "tips": [
+          "Sử dụng STAR để kể câu chuyện rõ ràng.",
+          "Nhấn mạnh khả năng làm việc đa văn hoá, time zone.",
+          "Thể hiện tinh thần học hỏi và chủ động nâng cấp quy trình."
+        ]
+      }
+    ],
+    "overallTips": [
+      "Xây timeline ôn luyện: 1 tuần thuật toán, 1 tuần review kiến trúc + system design.",
+      "Chuẩn bị câu chuyện thực tế cho mỗi vòng, mapping với yêu cầu JD.",
+      "Tập dượt trên camera để cải thiện pacing khi trả lời phỏng vấn online."
+    ]
+  },
+  {
+    "id": "grab-frontend-lead",
+    "company": "Grab",
+    "position": "Senior Front-End Engineer",
+    "location": "Singapore / Remote",
+    "logoUrl": "https://cdn.worldvectorlogo.com/logos/grab.svg",
+    "summary": "Quy trình 4 vòng tập trung vào architecture, scale và leadership trong môi trường siêu ứng dụng với hàng triệu người dùng.",
+    "lastUpdated": "2025-01-18",
+    "difficulty": "hard",
+    "tags": ["React", "Performance", "System Design"],
+    "rounds": [
+      {
+        "id": "grab-round-1",
+        "title": "Online Assessment",
+        "duration": "90 phút",
+        "format": "Hackerrank",
+        "focusAreas": ["Thuật toán", "Data structure", "Coding best practices"],
+        "sampleQuestions": [
+          "Tối ưu hoá recommendation list với sliding window",
+          "Thiết kế API client resilient khi gặp lỗi mạng"
+        ]
+      },
+      {
+        "id": "grab-round-2",
+        "title": "UI Architecture Deep Dive",
+        "duration": "120 phút",
+        "format": "Virtual onsite",
+        "focusAreas": [
+          "Scale front-end monorepo",
+          "Bundle performance",
+          "Real-time updates",
+          "Experimentation/A/B testing"
+        ],
+        "sampleQuestions": [
+          "Thiết kế kiến trúc micro-frontend cho GrabFood + GrabMart dùng chung core.",
+          "Giảm thời gian TTI từ 6s xuống 3s cho trang merchant detail."
+        ]
+      }
+    ],
+    "overallTips": [
+      "Chuẩn bị bảng metric đo performance (TTFB, TTI, FID, CLS).",
+      "Thể hiện tư duy ownership và khả năng align cross-team."
+    ]
+  },
+  {
+    "id": "tiki-shopping-experience",
+    "company": "Tiki",
+    "position": "Frontend Engineer – Shopping Experience",
+    "location": "Ho Chi Minh City",
+    "logoUrl": "https://cdn.worldvectorlogo.com/logos/tiki-1.svg",
+    "summary": "Chuỗi phỏng vấn nhiều vòng với team Tiki, tập trung năng lực web performance, hiểu biết React/Ant Design, HTML/CSS fundamentals và kinh nghiệm xử lý tình huống thực tế.",
+    "lastUpdated": "2025-01-25",
+    "difficulty": "medium",
+    "tags": ["React", "JavaScript", "Web Performance", "HTML", "CSS"],
+    "rounds": [
+      {
+        "id": "tiki-phone-call-1",
+        "title": "Phone Call #1 – Frontend Fundamentals",
+        "duration": "45 phút",
+        "format": "Online Interview",
+        "focusAreas": [
+          "Event loop & async flow",
+          "React PureComponent vs useMemo",
+          "Controlled components & HOC",
+          "Semantic HTML"
+        ],
+        "sampleQuestions": [
+          "Mô tả event loop và ví dụ khi xử lý API request.",
+          "Phân biệt controlled & uncontrolled component trong React.",
+          "Pure component hoạt động như thế nào? Khi nào dùng useMemo?",
+          "Tại sao cần semantic HTML?"
+        ]
+      },
+      {
+        "id": "tiki-phone-call-2",
+        "title": "Phone Call #2 – Web Platform Deep Dive",
+        "duration": "60 phút",
+        "format": "Online Interview",
+        "focusAreas": ["HTML5", "Networking", "CSS Fundamentals", "Animation"],
+        "sampleQuestions": [
+          "Thẻ DOCTYPE có tác dụng gì?",
+          "HTTP vs HTTPS khác nhau như thế nào?",
+          "Các loại display và position trong CSS?",
+          "Cách tạo animation với CSS, ý nghĩa của transform scaleX/scaleY?",
+          "Closure, hoisting, arrow function và ảnh hưởng tới SEO?"
+        ]
+      },
+      {
+        "id": "tiki-phone-call-3",
+        "title": "Phone Call #3 – Mini Assignment",
+        "duration": "60 phút",
+        "format": "Code Pair (React + Ant Design)",
+        "description": "Xây dựng form gồm danh sách email và date input. Submit form đẩy dữ liệu lên URL (query params) và load ngược vào form.",
+        "focusAreas": ["State synchronization", "URL search params", "Ant Design Form"]
+      },
+      {
+        "id": "tiki-phone-call-4",
+        "title": "Phone Call #4 – Project & Culture Fit (English)",
+        "duration": "60 phút",
+        "format": "Interview with PM",
+        "focusAreas": ["Problem solving", "Team collaboration", "Career stories"],
+        "sampleQuestions": [
+          "Khó khăn lớn nhất bạn từng gặp và cách vượt qua?",
+          "Khi team bất đồng ý kiến bạn làm gì?",
+          "Dự án tự hào nhất và thành công ở điểm nào?"
+        ]
+      },
+      {
+        "id": "tiki-phone-call-5",
+        "title": "Phone Call #5 – Performance & Architecture",
+        "duration": "75 phút",
+        "format": "Technical Interview",
+        "focusAreas": [
+          "Frontend performance",
+          "Image optimization",
+          "Realtime sync & multi-device",
+          "Career direction"
+        ],
+        "sampleQuestions": [
+          "Các cách tối ưu performance frontend? Giảm tải image như thế nào?",
+          "Định dạng ảnh phổ biến và khi nào dùng WebP?",
+          "Xử lý chat khi một account đăng nhập 2 máy khác nhau?",
+          "Định hướng trong 2 năm tới là gì?",
+          "SEO là gì và yếu tố ảnh hưởng đến SEO?"
+        ]
+      }
+    ],
+    "overallTips": [
+      "Chuẩn bị ví dụ thực tế cho từng câu hỏi về challenge và project highlight.",
+      "Ôn lại HTML5/CSS3 fundamentals, đặc biệt layout, animation và semantic.",
+      "Thử build form đồng bộ URL để quen tay với React + Ant Design.",
+      "Nắm vững performance checklist (script loading, image optimization, caching)."
+    ]
+  },
+  {
+    "id": "creatory-frontend",
+    "company": "Creatory",
+    "position": "Frontend Developer",
+    "location": "Ho Chi Minh City",
+    "logoUrl": "https://logo.clearbit.com/creatory.vn",
+    "summary": "Bộ câu hỏi thiên về kiến thức nền tảng HTML, React và JavaScript trong môi trường sản phẩm nội dung số.",
+    "lastUpdated": "2025-02-05",
+    "difficulty": "medium",
+    "tags": ["HTML", "React", "JavaScript", "Frontend Fundamentals"],
+    "rounds": [
+      {
+        "id": "creatory-html",
+        "title": "HTML & Browser",
+        "focusAreas": ["Storage APIs", "Responsive images"],
+        "sampleQuestions": [
+          "Phân biệt cookie, sessionStorage và localStorage?",
+          "Thẻ `<img srcset>` hoạt động như thế nào?"
+        ]
+      },
+      {
+        "id": "creatory-react",
+        "title": "React Architecture",
+        "focusAreas": [
+          "React rendering",
+          "State vs props",
+          "Function vs class component",
+          "Suspense & SSR"
+        ],
+        "sampleQuestions": [
+          "React hoạt động ra sao từ lúc render đến commit?",
+          "Controlled vs uncontrolled component khác nhau thế nào?",
+          "setState bất đồng bộ vì sao? Khi nào cần global state management?",
+          "Server-side rendering hoạt động ra sao? Ưu nhược điểm?"
+        ],
+        "tips": [
+          "Chuẩn bị ví dụ về lifting state và sử dụng ref/HOC.",
+          "Nắm được quan điểm về functional component, hook và class component."
+        ]
+      },
+      {
+        "id": "creatory-javascript",
+        "title": "JavaScript & Tooling",
+        "focusAreas": ["Build tools", "Language fundamentals"],
+        "sampleQuestions": [
+          "Vai trò của Babel trong quá trình build?",
+          "Deep copy khác shallow copy ở điểm nào?"
+        ]
+      }
+    ],
+    "overallTips": [
+      "Trình bày rõ quan điểm cá nhân về React, hãy có ví dụ dự án.",
+      "Ôn lại kiến trúc state management (context, Redux) và khi áp dụng.",
+      "Nắm chắc khái niệm SSR, Suspense và ref/HOC."
+    ]
+  },
+  {
+    "id": "s3corp-frontend",
+    "company": "S3Corp",
+    "position": "Frontend Developer (ReactJS)",
+    "location": "Ho Chi Minh City",
+    "logoUrl": "https://logo.clearbit.com/s3corp.com.vn",
+    "summary": "Quy trình phỏng vấn xoay quanh lifecycle, hook, Redux workflow và thực hành unit test theo JD của S3Corp.",
+    "lastUpdated": "2025-01-20",
+    "difficulty": "medium",
+    "tags": ["React", "Redux", "Testing", "Styled Components"],
+    "rounds": [
+      {
+        "id": "s3corp-react-lifecycle",
+        "title": "React Lifecycle & Hooks",
+        "focusAreas": ["Class lifecycle", "Hooks equivalence"],
+        "sampleQuestions": [
+          "Lifecycle của class component? Mapping sang hook tương ứng?",
+          "Giải thích useReducer, useEffect, useMemo, useContext.",
+          "Cơ chế của setState trong reducer? Vì sao cần clone state bằng spread?"
+        ]
+      },
+      {
+        "id": "s3corp-tooling",
+        "title": "Tooling & Testing",
+        "focusAreas": ["Unit test", "E2E", "Styled-components", "HTML5 APIs"],
+        "sampleQuestions": [
+          "Áp dụng Jest/Cypress như thế nào trong dự án FE?",
+          "Styled-components hoạt động ra sao? Khác gì CSS preprocessor?",
+          "Khi nào dùng localStorage và sessionStorage?"
+        ]
+      }
+    ],
+    "overallTips": [
+      "Chuẩn bị demo flow Redux từ action → reducer → store.",
+      "Có ví dụ unit test với Jest + React Testing Library càng tốt.",
+      "Nắm vững HTML5 APIs mới và cách tận dụng trong SPA."
+    ]
+  },
+  {
+    "id": "axon-fullstack",
+    "company": "AXON Vietnam",
+    "position": "Fullstack Developer",
+    "location": "Ho Chi Minh City",
+    "logoUrl": "https://logo.clearbit.com/axon.com",
+    "summary": "Quy trình có bài test trắc nghiệm và 3 câu thuật toán (SQL, logic) trước khi vào round phỏng vấn kỹ thuật.",
+    "lastUpdated": "2025-01-10",
+    "difficulty": "hard",
+    "tags": ["Algorithm", "SQL", "Logic"],
+    "rounds": [
+      {
+        "id": "axon-test",
+        "title": "Testing Assessment",
+        "duration": "90 phút",
+        "format": "Online Test",
+        "description": "5 câu trắc nghiệm nền tảng và 3 bài thuật toán thiên về SQL, xử lý dữ liệu, tư duy logic.",
+        "focusAreas": ["SQL optimization", "Data transformation", "Algorithmic thinking"],
+        "tips": [
+          "Ôn lại các phép JOIN, window function trong SQL.",
+          "Thực hành giải quyết bài toán logic đơn giản bằng pseudocode."
+        ]
+      }
+    ],
+    "overallTips": [
+      "Sau bài test sẽ có technical round sâu hơn, chuẩn bị explain code rõ ràng.",
+      "Giữ thời gian – phân bổ 20-25 phút mỗi bài algorithm."
+    ]
+  },
+  {
+    "id": "skedulo-frontend",
+    "company": "Skedulo",
+    "position": "Frontend Engineer",
+    "location": "Remote / Ho Chi Minh City",
+    "logoUrl": "https://logo.clearbit.com/skedulo.com",
+    "summary": "Các câu hỏi tập trung React memoization, event system và TypeScript type guard, kèm bài tập custom hook.",
+    "lastUpdated": "2025-02-05",
+    "difficulty": "medium",
+    "tags": ["React", "TypeScript", "Hooks"],
+    "rounds": [
+      {
+        "id": "skedulo-react",
+        "title": "React & TypeScript Deep Dive",
+        "focusAreas": ["React.memo", "Event bubbling", "Type guards"],
+        "sampleQuestions": [
+          "React.memo là gì? Khi nào nên dùng?",
+          "Giải thích event bubbling và cách chặn listener tại child.",
+          "Type guard trong TypeScript dùng để làm gì?"
+        ]
+      },
+      {
+        "id": "skedulo-hook",
+        "title": "Custom Hook Exercise",
+        "format": "Live Coding",
+        "description": "Viết custom hook `useLocalStorage` nhận key, defaultValue, trả về [value, setter, clear]."
+      }
+    ],
+    "overallTips": [
+      "Ôn lại pattern viết custom hook và quản lý side effect với useEffect.",
+      "Chuẩn bị ví dụ type guard (e.g. `value is string`)."
+    ]
+  },
+  {
+    "id": "tenx-frontend",
+    "company": "10X",
+    "position": "Frontend Engineer",
+    "location": "Remote",
+    "logoUrl": "https://logo.clearbit.com/10x.co",
+    "summary": "Nhà tuyển dụng 10X tập trung vào middleware, lifecycle React và cơ chế render sau khi call API.",
+    "lastUpdated": "2025-01-30",
+    "difficulty": "medium",
+    "tags": ["Redux", "Middleware", "Async", "React Rendering"],
+    "rounds": [
+      {
+        "id": "tenx-react-architecture",
+        "title": "React Architecture & Middleware",
+        "focusAreas": ["Redux middleware", "Async flow", "Component lifecycle"],
+        "sampleQuestions": [
+          "Vì sao cần middleware như saga/thunk?",
+          "Sau khi call API, component destroy thì data đi đâu? Bảo toàn state thế nào?",
+          "Await có đồng bộ không?",
+          "Cơ chế render của React diễn ra theo các phase nào?"
+        ],
+        "resources": [
+          {
+            "title": "Flux vs Redux Middleware Patterns",
+            "url": "https://github.com/Ren0503/fullstack-interviews"
+          }
+        ]
+      }
+    ],
+    "overallTips": [
+      "Nhấn mạnh kinh nghiệm xử lý side-effect bằng saga/thunk.",
+      "Hiểu rõ render phase → commit phase trong React."
+    ]
+  },
+  {
+    "id": "nextjs-handbook",
+    "company": "Interview Handbook",
+    "position": "Next.js Knowledge Pack",
+    "logoUrl": "https://logo.clearbit.com/vercel.com",
+    "summary": "Tổng hợp câu hỏi Next.js & SSR cho vòng technical, nhấn mạnh ưu điểm so với React thuần và các kỹ thuật tối ưu.",
+    "lastUpdated": "2025-02-05",
+    "difficulty": "medium",
+    "tags": ["Next.js", "SSR", "Performance", "Code Splitting"],
+    "rounds": [
+      {
+        "id": "nextjs-overview",
+        "title": "Next.js Core Concepts",
+        "focusAreas": ["Next.js vs React", "Code splitting", "SSR", "SSG"],
+        "sampleQuestions": [
+          "Next.js là gì và khác gì React?",
+          "Ưu điểm của Next.js so với React thuần?",
+          "Tầm quan trọng của code splitting trong Next.js?",
+          "SSR hoạt động như thế nào trong Next.js?",
+          "SSG khác SSR ở điểm nào?"
+        ],
+        "tips": [
+          "Nhấn mạnh hybrid rendering và các hook như `getServerSideProps`.",
+          "Trình bày best practices tối ưu hiệu năng (image optimization, caching, bundle analyze)."
+        ]
+      }
+    ],
+    "overallTips": [
+      "Chuẩn bị ví dụ dự án đã triển khai Next.js và kết quả tối ưu.",
+      "Nắm rõ difference giữa CSR/SSR/SSG/ISR để trả lời linh hoạt."
+    ]
+  }
+]

@@ -7,6 +7,7 @@ import '@fehub/ui/styles.css'
 import './index.css'
 import { AuthProvider } from './providers/AuthProvider'
 import { KnowledgeBaseProvider } from './providers/KnowledgeBaseProvider'
+import { InterviewPrepProvider } from './providers/InterviewPrepProvider'
 import App from './App.tsx'
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? ''
@@ -20,9 +21,11 @@ createRoot(document.getElementById('root')!).render(
     <GoogleOAuthProvider clientId={googleClientId}>
       <AuthProvider>
         <KnowledgeBaseProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <InterviewPrepProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </InterviewPrepProvider>
         </KnowledgeBaseProvider>
       </AuthProvider>
     </GoogleOAuthProvider>

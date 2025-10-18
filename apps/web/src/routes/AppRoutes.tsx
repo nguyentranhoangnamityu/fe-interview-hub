@@ -11,7 +11,8 @@ import { QuizPage } from '../screens/QuizPage'
 import { MockInterviewLevelPage } from '../screens/MockInterviewLevelPage'
 import { MockInterviewAIPage } from '../screens/MockInterviewAIPage'
 import { AIInterviewPage } from '../screens/AIInterviewPage'
-import { ComponentInterviewReviewPage } from '../screens/ComponentInterviewReviewPage'
+import { ComponentInterviewReviewListPage } from '../screens/ComponentInterviewReviewListPage'
+import { ComponentInterviewReviewDetailPage } from '../screens/ComponentInterviewReviewDetailPage'
 import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRoutes = () => {
@@ -95,7 +96,15 @@ export const AppRoutes = () => {
         path="/component-interview-review"
         element={
           <ProtectedRoute>
-            <ComponentInterviewReviewPage />
+            <ComponentInterviewReviewListPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/component-interview-review/:prepId"
+        element={
+          <ProtectedRoute>
+            <ComponentInterviewReviewDetailPage />
           </ProtectedRoute>
         }
       />

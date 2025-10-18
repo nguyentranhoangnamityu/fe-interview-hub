@@ -9,6 +9,7 @@ import { progressRouter } from './routes/progress'
 import { userQuizzesRouter, quizSubmissionRouter } from './routes/quizzes'
 import { usersRouter } from './routes/users'
 import { adminRouter } from './routes/admin'
+import { interviewPrepsRouter } from './routes/interviewPreps'
 
 export const createApp = () => {
   const app = express()
@@ -24,6 +25,7 @@ export const createApp = () => {
   app.use('/api/health', healthRouter)
   app.use('/api/tech-stacks', techStacksRouter)
   app.use('/api/lessons', lessonsRouter)
+  app.use('/api/interview-preps', interviewPrepsRouter)
   app.use('/api/users/:userId/progress', progressRouter)
   app.use('/api/users/:userId/quizzes', userQuizzesRouter)
   app.use('/api/lessons/:lessonId/quizzes/submissions', quizSubmissionRouter)

@@ -1,9 +1,12 @@
 import type {
+  CreateInterviewPrepPayload,
   CreateLessonPayload,
+  InterviewPrep,
   Lesson,
   LessonProgress,
   LessonQuizResult,
   TechStack,
+  UpdateInterviewPrepPayload,
   UpdateLessonPayload,
 } from '@fehub/types'
 
@@ -63,6 +66,35 @@ export const createApiClient = ({ baseUrl }: ApiClientOptions) => {
       return request<Lesson[]>(`/lessons${query}`)
     },
     getLesson: (lessonId: string) => request<Lesson>(`/lessons/${encodeURIComponent(lessonId)}`),
+    listInterviewPreps: () => request<InterviewPrep[]>('/interview-preps'),
+    getInterviewPrep: (prepId: string) =>
+      request<InterviewPrep>(`/interview-preps/${encodeURIComponent(prepId)}`),
+    createInterviewPrep: (payload: CreateInterviewPrepPayload) =>
+      request<InterviewPrep>('/interview-preps', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }),
+    updateInterviewPrep: (prepId: string, payload: UpdateInterviewPrepPayload) =>
+      request<InterviewPrep>(`/interview-preps/${encodeURIComponent(prepId)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }),
+    deleteInterviewPrep: (prepId: string) =>
+      fetch(`${baseUrl}/interview-preps/${encodeURIComponent(prepId)}`, {
+        method: 'DELETE',
+        cache: 'no-store',
+      }).then(async (response) => {
+        if (!response.ok && response.status !== 204) {
+          throw new Error('Failed to delete interview prep')
+        }
+        return undefined
+      }),
     createLesson: (payload: CreateLessonPayload) =>
       request<Lesson>('/lessons', {
         method: 'POST',

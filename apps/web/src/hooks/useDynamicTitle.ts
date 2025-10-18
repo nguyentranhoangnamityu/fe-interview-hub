@@ -1,6 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useKnowledgeBase } from '../providers/KnowledgeBaseProvider'
+import { useInterviewPrep } from '../providers/InterviewPrepProvider'
+import { getTechLogoUrl } from '../constants/techLogos'
+import { getCompanyLogo } from '../constants/companyLogos'
 
 interface RouteConfig {
   title: string
@@ -64,7 +67,7 @@ const getRouteConfig = (
     const stackName = techStacks?.[stackId]?.name ?? 'Knowledge Explorer'
     return {
       title: `${stackName} - Knowledge Explorer - FE Interview Hub`,
-      favicon: '/favicon-knowledge.svg'
+      favicon: techStacks?.[stackId] ? getTechLogoUrl(stackId) : '/favicon-knowledge.svg'
     }
   }
 
@@ -76,9 +79,10 @@ const getRouteConfig = (
     const lessonId = pathname.split('/')[2]
     const lesson = getLesson?.(lessonId)
     const lessonName = lesson?.title || 'Bài học'
+    const stackId = lesson?.techStack
     return {
       title: `${lessonName} - FE Interview Hub`,
-      favicon: '/favicon-knowledge.svg'
+      favicon: stackId ? getTechLogoUrl(stackId) : '/favicon-knowledge.svg'
     }
   }
   
@@ -97,9 +101,25 @@ const getRouteConfig = (
 export const useDynamicTitle = () => {
   const location = useLocation()
   const { getLesson, techStacks } = useKnowledgeBase()
+  const { companiesById } = useInterviewPrep()
+
+  const interviewData = useMemo(() => companiesById, [companiesById])
 
   useEffect(() => {
-    const config = getRouteConfig(location.pathname, getLesson, techStacks)
+    const config = (() => {
+      if (location.pathname.startsWith('/component-interview-review/')) {
+        const prepId = location.pathname.split('/')[2]
+        const company = interviewData[prepId]
+        return {
+          title: company
+            ? `${company.company} - ${company.position} Interview Prep`
+            : 'Interview Prep - FE Interview Hub',
+          favicon: company ? getCompanyLogo(company.id, company.logoUrl) : '/favicon-interview.svg',
+        }
+      }
+
+      return getRouteConfig(location.pathname, getLesson, techStacks)
+    })()
     
     // Cập nhật title
     document.title = config.title
@@ -116,5 +136,5 @@ export const useDynamicTitle = () => {
       link.href = config.favicon
       document.head.appendChild(link)
     }
-  }, [location.pathname, getLesson, techStacks])
+  }, [location.pathname, getLesson, techStacks, interviewData])
 }
