@@ -29,6 +29,33 @@ export const ComponentInterviewReviewListPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-indigo-50 px-4 py-10 sm:px-6 lg:px-12 xl:px-16 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
+        <div className="rounded-3xl border border-amber-200/70 bg-amber-50/80 p-6 text-amber-700 shadow-lg shadow-amber-200/40 backdrop-blur dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-amber-500 shadow-inner ring-1 ring-amber-200 dark:bg-slate-900/80 dark:text-amber-300 dark:ring-amber-500/40">
+              <svg
+                className="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"
+                />
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.35em]">Cảnh báo</p>
+              <p className="mt-2 text-sm leading-relaxed">
+                Nội dung trên trang được thu thập từ internet và các cộng đồng chia sẻ kinh nghiệm.
+                FE Interview Hub không chịu trách nhiệm về tính chính xác hoặc đầy đủ của thông tin.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <header className="rounded-3xl border border-indigo-200/60 bg-white/95 p-8 shadow-xl shadow-indigo-200/40 backdrop-blur dark:border-slate-800 dark:bg-slate-900/75 dark:shadow-none">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-start gap-4">

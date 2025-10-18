@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Sidebar } from '../components/Sidebar'
 import { Button } from '@fehub/ui'
 
@@ -11,6 +12,8 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
+  const location = useLocation()
+  const hideSidebar = location.pathname.startsWith('/about-me')
 
   useEffect(() => {
     const checkMobile = () => {
@@ -27,19 +30,27 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  useEffect(() => {
+    if (hideSidebar) {
+      setSidebarOpen(false)
+    }
+  }, [hideSidebar])
+
   return (
     <div className="flex h-screen bg-[#f5f3ff] dark:bg-background overflow-hidden">
-      <Sidebar 
-        isOpen={sidebarOpen} 
-        onClose={() => setSidebarOpen(false)}
-        isCollapsed={isCollapsed}
-        onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
-      />
+      {!hideSidebar && (
+        <Sidebar 
+          isOpen={sidebarOpen} 
+          onClose={() => setSidebarOpen(false)}
+          isCollapsed={isCollapsed}
+          onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
+        />
+      )}
       
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Mobile/Tablet header with menu button */}
-        {isMobile && (
+        {isMobile && !hideSidebar && (
           <header className="flex items-center justify-between p-3 sm:p-4 bg-white/90 backdrop-blur-xl border-b border-indigo-200/60 dark:bg-card/80 dark:border-slate-800 xl:hidden flex-shrink-0">
             <Button
               variant="ghost"

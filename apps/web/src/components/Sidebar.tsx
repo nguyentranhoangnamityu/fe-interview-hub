@@ -69,6 +69,15 @@ const menuItems: MenuItem[] = [
       </svg>
     ),
   },
+  {
+    title: 'About Me',
+    href: '/about-me',
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4 0-8 2-8 4v1a1 1 0 001 1h14a1 1 0 001-1v-1c0-2-4-4-8-4z" />
+      </svg>
+    ),
+  },
 ]
 
 export const Sidebar = ({ className, isOpen = true, onClose, isCollapsed = false, onToggleCollapse }: SidebarProps) => {

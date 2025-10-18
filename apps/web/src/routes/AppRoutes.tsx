@@ -13,6 +13,7 @@ import { MockInterviewAIPage } from '../screens/MockInterviewAIPage'
 import { AIInterviewPage } from '../screens/AIInterviewPage'
 import { ComponentInterviewReviewListPage } from '../screens/ComponentInterviewReviewListPage'
 import { ComponentInterviewReviewDetailPage } from '../screens/ComponentInterviewReviewDetailPage'
+import { AboutMePage } from '../screens/AboutMePage'
 import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRoutes = () => {
@@ -105,6 +106,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <ComponentInterviewReviewDetailPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/about-me"
+        element={
+          <ProtectedRoute>
+            <AboutMePage />
           </ProtectedRoute>
         }
       />
