@@ -46,7 +46,7 @@ const techStack: PrimaryTech[] = [
     caption: '',
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg"
+        src="https://www.svgrepo.com/show/374144/typescript.svg"
         alt="TypeScript logo"
         className="h-16 w-16 object-contain"
         loading="lazy"
