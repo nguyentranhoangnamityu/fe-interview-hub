@@ -20,8 +20,10 @@ export const createApp = () => {
     res.header('Access-Control-Allow-Origin', origin || '*')
     res.header('Access-Control-Allow-Credentials', 'true')
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform')
-    res.header('Access-Control-Expose-Headers', 'Content-Type')
+    // Cho phép tất cả headers từ request hoặc sử dụng wildcard
+    const requestedHeaders = req.headers['access-control-request-headers']
+    res.header('Access-Control-Allow-Headers', requestedHeaders || '*')
+    res.header('Access-Control-Expose-Headers', '*')
     
     // Handle preflight requests
     if (req.method === 'OPTIONS') {
