@@ -17,6 +17,7 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { CreateLessonPayload, Lesson, LessonSection, TechStack } from '@fehub/types'
 import { useAdmin } from '../providers/AdminProvider'
+import { LessonContentEditor } from '../components/LessonContentEditor'
 
 type LessonFormSubmitPayload = Omit<CreateLessonPayload, 'id'>
 
@@ -66,20 +67,69 @@ const blocksToText = (body: LessonSection['body']) =>
       if (block.type === 'paragraph') return block.text
       if (block.type === 'list') return block.items.join('\n')
       if (block.type === 'code') return `\`\`\`${block.language}\n${block.snippet}\n\`\`\``
+      if (block.type === 'image') {
+        const imageBlock = block as Extract<typeof block, { type: 'image' }>
+        return `![${imageBlock.alt}](${imageBlock.url})`
+      }
       return ''
     })
     .filter(Boolean)
     .join('\n\n')
 
-const textToBlocks = (content: string): LessonSection['body'] =>
-  content
-    .split(/\n{2,}/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean)
-    .map((paragraph) => ({
-      type: 'paragraph' as const,
-      text: paragraph,
-    }))
+const textToBlocks = (content: string): LessonSection['body'] => {
+  const lines = content.split('\n')
+  const blocks: LessonSection['body'] = []
+  let currentParagraph = ''
+  
+  for (const line of lines) {
+    const trimmed = line.trim()
+    
+    // Handle markdown image syntax: ![alt](url)
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
+    if (imageMatch) {
+      if (currentParagraph) {
+        blocks.push({ type: 'paragraph', text: currentParagraph.trim() })
+        currentParagraph = ''
+      }
+      blocks.push({ type: 'image' as const, url: imageMatch[2], alt: imageMatch[1] || '' })
+      continue
+    }
+    
+    // Handle code blocks
+    if (trimmed.startsWith('```')) {
+      if (currentParagraph) {
+        blocks.push({ type: 'paragraph', text: currentParagraph.trim() })
+        currentParagraph = ''
+      }
+      const language = trimmed.slice(3).trim() || 'text'
+      const codeLines: string[] = []
+      for (let i = lines.indexOf(line) + 1; i < lines.length; i++) {
+        if (lines[i].trim() === '```') {
+          break
+        }
+        codeLines.push(lines[i])
+      }
+      if (codeLines.length > 0) {
+        blocks.push({ type: 'code', language, snippet: codeLines.join('\n') })
+      }
+      continue
+    }
+    
+    // Regular content
+    if (trimmed) {
+      currentParagraph += (currentParagraph ? '\n' : '') + line
+    } else if (currentParagraph) {
+      blocks.push({ type: 'paragraph', text: currentParagraph.trim() })
+      currentParagraph = ''
+    }
+  }
+  
+  if (currentParagraph) {
+    blocks.push({ type: 'paragraph', text: currentParagraph.trim() })
+  }
+  
+  return blocks.length > 0 ? blocks : [{ type: 'paragraph', text: content || '' }]
+}
 
 const buildDifficultyOptions = (lessons: Lesson[]) => {
   const options = new Set<string>()
@@ -464,16 +514,15 @@ const LessonFormModal = ({
                             <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
                               Nội dung
                             </label>
-                            <textarea
+                            <LessonContentEditor
                               value={section.content}
-                              onChange={(event) =>
+                              onChange={(newContent) =>
                                 setSections((prev) =>
                                   prev.map((item) =>
-                                    item.id === section.id ? { ...item, content: event.target.value } : item,
+                                    item.id === section.id ? { ...item, content: newContent } : item,
                                   ),
                                 )
                               }
-                              className="h-32 w-full rounded-lg border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-red-500"
                               placeholder="Viết nội dung hoặc các ý chính, sử dụng xuống dòng để tách đoạn."
                             />
                           </div>
@@ -618,13 +667,26 @@ export const LessonDetailModal = ({ lesson, onClose, techStacksMap }: LessonDeta
                         )
                       }
                       if (block.type === 'code') {
+                        return null
+                      }
+                      if (block.type === 'image') {
+                        const imageBlock = block as Extract<typeof block, { type: 'image' }>
                         return (
-                          <pre
-                            key={blockIndex}
-                            className="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-slate-100"
-                          >
-                            <code>{block.snippet}</code>
-                          </pre>
+                          <div key={blockIndex} className="my-3 flex justify-center">
+                            <div className="max-w-full overflow-hidden rounded-lg border border-slate-200 shadow-sm dark:border-slate-700">
+                              <img
+                                src={imageBlock.url}
+                                alt={imageBlock.alt}
+                                className="max-h-[200px] max-w-full object-contain"
+                                style={{ width: 'auto', height: 'auto', maxWidth: '90%' }}
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement
+                                  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5IbnhoIHRvbmcgdGkmaSBoadKwam5nPC90ZXh0Pjwvc3ZnPg=='
+                                  target.classList.add('opacity-50')
+                                }}
+                              />
+                            </div>
+                          </div>
                         )
                       }
                       return null

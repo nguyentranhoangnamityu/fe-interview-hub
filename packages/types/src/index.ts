@@ -2,6 +2,7 @@ export type ContentBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'list'; items: string[] }
   | { type: 'code'; language: string; snippet: string }
+  | { type: 'image'; url: string; alt: string }
 
 export type LessonQuizOption = {
   id: string

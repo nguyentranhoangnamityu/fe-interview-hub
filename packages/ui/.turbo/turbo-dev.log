@@ -11,11 +11,11 @@
 [34mCLI[39m Cleaning output folder
 [34mESM[39m Build start
 [34mCJS[39m Build start
-[32mCJS[39m [1mdist/index.cjs [22m[32m2.46 KB[39m
-[32mCJS[39m ⚡️ Build success in 35ms
 [32mESM[39m [1mdist/index.js [22m[32m1.82 KB[39m
-[32mESM[39m ⚡️ Build success in 35ms
+[32mESM[39m ⚡️ Build success in 39ms
+[32mCJS[39m [1mdist/index.cjs [22m[32m2.46 KB[39m
+[32mCJS[39m ⚡️ Build success in 39ms
 [34mCLI[39m Watching for changes in "."
 [34mCLI[39m Ignoring changes in "**/{.git,node_modules}/**" | "dist"
 DTS Build start
-DTS ⚡️ Build success in 795ms
+DTS ⚡️ Build success in 457ms

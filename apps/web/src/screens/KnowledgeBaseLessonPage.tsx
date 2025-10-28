@@ -74,12 +74,32 @@ const renderSectionBody = (section: Lesson['sections'][number]['body']) =>
       )
     }
 
-    if (block.type === 'code') {
+    if (block.type === 'code' && !block.snippet.includes('Hình ảnh')) {
       return (
         <div key={`code-${index}`} className="my-6">
           <pre className="overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm leading-relaxed text-slate-100 shadow-lg">
             <code className="font-mono">{block.snippet}</code>
           </pre>
+        </div>
+      )
+    }
+
+    if (block.type === 'image') {
+      const imageBlock = block as Extract<typeof block, { type: 'image' }>
+      return (
+        <div key={`image-${index}`} className="my-4 flex justify-center">
+          <div className="w-full overflow-hidden rounded-xl border border-indigo-200/70 shadow-lg dark:border-slate-700">
+            <img
+              src={imageBlock.url}
+              alt={imageBlock.alt}
+              className="max-h-[300px] w-full object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement
+                target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+'
+                target.classList.add('opacity-50')
+              }}
+            />
+          </div>
         </div>
       )
     }

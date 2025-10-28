@@ -18,6 +18,11 @@ const contentBlockSchema = z.discriminatedUnion('type', [
     language: z.string(),
     snippet: z.string(),
   }),
+  z.object({
+    type: z.literal('image'),
+    url: z.string(),
+    alt: z.string(),
+  }),
 ])
 
 const sectionSchema = z.object({
