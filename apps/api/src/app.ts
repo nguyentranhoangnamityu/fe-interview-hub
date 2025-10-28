@@ -1,5 +1,4 @@
 import express from 'express'
-import cors from 'cors'
 import morgan from 'morgan'
 
 import { healthRouter } from './routes/health'
@@ -14,11 +13,23 @@ import { interviewPrepsRouter } from './routes/interviewPreps'
 export const createApp = () => {
   const app = express()
 
-  app.use(
-    cors({
-      origin: '*',
-    }),
-  )
+  // CORS middleware chi tiết - xử lý preflight và custom headers
+  app.use((req, res, next) => {
+    // Cho phép tất cả origin
+    const origin = req.headers.origin
+    res.header('Access-Control-Allow-Origin', origin || '*')
+    res.header('Access-Control-Allow-Credentials', 'true')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, Referer, sec-ch-ua, sec-ch-ua-mobile, sec-ch-ua-platform')
+    res.header('Access-Control-Expose-Headers', 'Content-Type')
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(200)
+    }
+    
+    next()
+  })
   app.use(express.json({ limit: '1mb' }))
   app.use(morgan('dev'))
 
